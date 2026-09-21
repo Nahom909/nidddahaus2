@@ -1,0 +1,406 @@
+{
+  "sections": [
+    {
+      "type": "kategorie",
+      "title": "Aperitif",
+      "text": "",
+      "wide": false,
+      "accent": false,
+      "hint_title": "",
+      "hint_text": "",
+      "items": [
+        {
+          "nummer": "",
+          "name": "Aperol Spritz",
+          "description": "Aperol, Prosecco, Soda, Orange",
+          "price": "8,50 €"
+        },
+        {
+          "nummer": "",
+          "name": "Hugo",
+          "description": "Prosecco, Holunderblütensirup, Soda, Minze, Limette",
+          "price": "8,50 €"
+        },
+        {
+          "nummer": "",
+          "name": "Campari Orange",
+          "description": "Campari, Orangensaft, Orange",
+          "price": "8,50 €"
+        },
+        {
+          "nummer": "",
+          "name": "Campari Soda",
+          "description": "Campari, Soda, Zitrone",
+          "price": "8,50 €"
+        },
+        {
+          "nummer": "",
+          "name": "Sekt 0,1",
+          "description": "Deutscher Qualitätssekt trocken",
+          "price": "4,20 €"
+        },
+        {
+          "nummer": "",
+          "name": "Wild Berry alkoholfrei",
+          "description": "Schweppes Wild Berry, Beeren, Limette",
+          "price": "6,90 €"
+        }
+      ]
+    },
+    {
+      "type": "kategorie",
+      "title": "Vorspeisen",
+      "text": "",
+      "wide": false,
+      "accent": false,
+      "hint_title": "",
+      "hint_text": "",
+      "items": [
+        {
+          "nummer": "1.",
+          "name": "Handkäse mit Musik",
+          "description": "Handkäse mit Brot & Butter, wahlweise mit oder ohne Musik",
+          "price": "9,80 €"
+        },
+        {
+          "nummer": "5.",
+          "name": "Büffelmozzarella mit Kirschtomaten",
+          "description": "mit Olivenöl, Pesto, Pinienkernen und Knoblauchbrot",
+          "price": "11,70 €"
+        },
+        {
+          "nummer": "6.",
+          "name": "Gegrillter Schafskäse",
+          "description": "auf Zucchinibeet, Knoblauch, Petersilien-Pesto, dazu Baguette",
+          "price": "11,90 €"
+        },
+        {
+          "nummer": "7.",
+          "name": "Garnelen in Knoblauch & Olivenöl",
+          "description": "mit Tomaten, pikanter Soße, dazu Baguette",
+          "price": "16,90 €"
+        },
+        {
+          "nummer": "8.",
+          "name": "Tagessuppe",
+          "description": "",
+          "price": "5,80 €"
+        }
+      ]
+    },
+    {
+      "type": "kategorie",
+      "title": "Für den kleinen Hunger",
+      "text": "",
+      "wide": false,
+      "accent": false,
+      "hint_title": "",
+      "hint_text": "",
+      "items": [
+        {
+          "nummer": "10.",
+          "name": "Bruschetta",
+          "description": "auf knusprigem Sauerteigbrot mit Rucola, Parmesan und Pinienkernen",
+          "price": "8,90 €"
+        },
+        {
+          "nummer": "11.",
+          "name": "NIDDAHAUS Stulle",
+          "description": "gegrilltes Sauerteigbrot mit Frischkäsecreme, Pute, Honigmelone, Gorgonzola und frischen Kräutern",
+          "price": "12,90 €"
+        },
+        {
+          "nummer": "25.",
+          "name": "Allgäuer Käsespätzle",
+          "description": "mit Bergkäse und Röstzwiebeln, dazu kleiner Salat",
+          "price": "13,90 €"
+        }
+      ]
+    },
+    {
+      "type": "kategorie",
+      "title": "Argentinische Steaks",
+      "text": "",
+      "wide": false,
+      "accent": true,
+      "hint_title": "",
+      "hint_text": "",
+      "items": [
+        {
+          "nummer": "43.",
+          "name": "Rumpsteak ca. 250 g",
+          "description": "mit Kräuterbutter oder geschmorten Zwiebeln, dazu Bratkartoffeln und Salat",
+          "price": "28,90 €"
+        },
+        {
+          "nummer": "44.",
+          "name": "Rumpsteak ca. 250 g",
+          "description": "mit Pfeffersauce, Pommes frites und Salat",
+          "price": "29,90 €"
+        },
+        {
+          "nummer": "18.",
+          "name": "Rindersteak ca. 150 g",
+          "description": "mit geschmorten Zwiebeln, Pommes frites und Salat",
+          "price": "21,90 €"
+        }
+      ]
+    },
+    {
+      "type": "kategorie",
+      "title": "NIDDAHAUS Klassiker",
+      "text": "",
+      "wide": true,
+      "accent": false,
+      "hint_title": "",
+      "hint_text": "",
+      "items": [
+        {
+          "nummer": "26.",
+          "name": "Schnitzel Wiener Art",
+          "description": "mit knusprigen Pommes frites, Zitrone und Preiselbeeren und Beilagensalat",
+          "price": "17,80 €"
+        },
+        {
+          "nummer": "28.",
+          "name": "Rahmschnitzel",
+          "description": "mit Champignons in cremiger Rahmsauce, dazu Pommes frites und Beilagensalat",
+          "price": "18,80 €"
+        },
+        {
+          "nummer": "23.",
+          "name": "Frankfurter Schnitzel",
+          "description": "mit klassischer Grüner Soße, gekochtem Ei und Bratkartoffeln",
+          "price": "18,90 €"
+        },
+        {
+          "nummer": "29.",
+          "name": "Cordon Bleu",
+          "description": "gefüllt mit Schinken und Käse, dazu Pommes frites und Beilagensalat",
+          "price": "21,90 €"
+        },
+        {
+          "nummer": "33.",
+          "name": "Putensteak vom Grill",
+          "description": "mit Kräuterbutter, frischem Gemüse und Salzkartoffeln",
+          "price": "23,90 €"
+        },
+        {
+          "nummer": "34.",
+          "name": "Tagliatelle NIDDAHAUS",
+          "description": "mit gebratenem Lachsfilet in leichter Sahnesauce mit frischen Kräutern",
+          "price": "18,90 €"
+        },
+        {
+          "nummer": "35.",
+          "name": "Penne Burrata",
+          "description": "in aromatischer mediterraner Tomatensauce",
+          "price": "14,90 €"
+        },
+        {
+          "nummer": "22.",
+          "name": "Frankfurter Grüne Soße",
+          "description": "mit vier halben Eiern und Salzkartoffeln",
+          "price": "14,90 €"
+        },
+        {
+          "nummer": "54.",
+          "name": "Lachsfilet vom Grill",
+          "description": "mit Weißweinrahmsauce, saisonalem Gemüse und Dampfkartoffeln",
+          "price": "24,90 €"
+        },
+        {
+          "nummer": "36.",
+          "name": "NIDDAHAUS Classic Burger",
+          "description": "180 g Rindfleisch (100 % Beef), Cheddar, Würzgurken, geschmorte Zwiebeln, Tomaten, Blattsalat, hausgemachte Burgersauce, Pommes frites",
+          "price": "18,90 €"
+        },
+        {
+          "nummer": "24.",
+          "name": "Tafelspitz vom Kalb",
+          "description": "Frankfurter Grüne Soße oder Meerrettichsoße, Rote Bete, Salzkartoffeln – aus regionaler Herkunft",
+          "price": "23,90 €"
+        },
+        {
+          "nummer": "27.",
+          "name": "Geschmorte Ochsenbäckchen vom Rind",
+          "description": "Petersilien-Kartoffelstampf, Portweinjus, Babykarotten",
+          "price": "24,90 €"
+        }
+      ]
+    },
+    {
+      "hint_title": "",
+      "items": [],
+      "hint_text": "",
+      "accent": false,
+      "text": "",
+      "wide": false,
+      "highlight_name": "Zwiebelrostbraten vom Roastbeef",
+      "title": "Sonntagsbraten",
+      "type": "empfehlung",
+      "highlight_desc": "mit Röstzwiebeln und Käsespätzle",
+      "highlight_price": "29,90 €"
+    },
+    {
+      "type": "kategorie",
+      "title": "Salate",
+      "text": "Blattsalate, Gurke, Tomaten, Karotten und Mais, hausgemachtes Dressing, dazu Brot",
+      "wide": false,
+      "accent": false,
+      "hint_title": "",
+      "hint_text": "",
+      "items": [
+        {
+          "nummer": "12.",
+          "name": "Kleiner gemischter Salat",
+          "description": "",
+          "price": "5,50 €"
+        },
+        {
+          "nummer": "13.",
+          "name": "Großer gemischter Salat",
+          "description": "",
+          "price": "8,90 €"
+        },
+        {
+          "nummer": "15.",
+          "name": "Großer Salat",
+          "description": "mit Hähnchenbrustfilet & Parmesan",
+          "price": "15,90 €"
+        },
+        {
+          "nummer": "16.",
+          "name": "Großer Salat",
+          "description": "mit Garnelen in Olivenöl gebraten, Honig-Senf-Dressing",
+          "price": "17,90 €"
+        },
+        {
+          "nummer": "17.",
+          "name": "Großer Salat",
+          "description": "mit gebackenem Schafskäse und Walnüssen",
+          "price": "14,90 €"
+        }
+      ]
+    },
+    {
+      "type": "kategorie",
+      "title": "Für unsere kleinen Gäste",
+      "text": "",
+      "wide": false,
+      "accent": false,
+      "hint_title": "",
+      "hint_text": "",
+      "items": [
+        {
+          "nummer": "19.",
+          "name": "Käsespätzle mit Rahmsauce",
+          "description": "",
+          "price": "9,90 €"
+        },
+        {
+          "nummer": "20.",
+          "name": "Biene Maja",
+          "description": "Schnitzel mit Pommes frites und Salat",
+          "price": "11,90 €"
+        },
+        {
+          "nummer": "21.",
+          "name": "Käpt'n Iglo",
+          "description": "panierte Fischstäbchen mit Pommes frites und Salat",
+          "price": "11,90 €"
+        }
+      ]
+    },
+    {
+      "type": "kategorie",
+      "title": "Desserts",
+      "text": "",
+      "wide": false,
+      "accent": false,
+      "hint_title": "",
+      "hint_text": "",
+      "items": [
+        {
+          "nummer": "116.",
+          "name": "Crème brûlée mit Himbeeren",
+          "description": "",
+          "price": "8,20 €"
+        },
+        {
+          "nummer": "117.",
+          "name": "Panna Cotta",
+          "description": "mit Pistazien oder Himbeeren",
+          "price": "8,20 €"
+        },
+        {
+          "nummer": "63.",
+          "name": "Eisspezialitäten – 3 Kugeln nach Wahl",
+          "description": "Vanilleis · Schokoladeneis · Erdbeereis",
+          "price": "7,50 €"
+        },
+        {
+          "nummer": "64.",
+          "name": "Kinderbecher",
+          "description": "2 Kugeln mit Smarties",
+          "price": "5,90 €"
+        }
+      ]
+    },
+    {
+      "type": "kategorie",
+      "title": "Getränke",
+      "text": "",
+      "wide": false,
+      "accent": false,
+      "hint_title": "Platzhalter – Getränkekarte fehlt noch",
+      "hint_text": "Auf der ausgehängten Speisekarte stehen nur die Aperitifs. Bitte die Getränkekarte zusenden, dann tragen wir alles ein. Nichts hiervon ist erfunden.",
+      "items": [
+        {
+          "nummer": "",
+          "name": "[Weine]",
+          "description": "[Weiß · Rot · Rosé, offen und in der Flasche]",
+          "price": "[0,00 €]"
+        },
+        {
+          "nummer": "",
+          "name": "[Bier]",
+          "description": "[vom Fass und in der Flasche]",
+          "price": "[0,00 €]"
+        },
+        {
+          "nummer": "",
+          "name": "[Kaffee & Tee]",
+          "description": "[Kaffee, Cappuccino, Latte macchiato, Tee]",
+          "price": "[0,00 €]"
+        },
+        {
+          "nummer": "",
+          "name": "[Alkoholfreie Getränke]",
+          "description": "[Wasser, Softdrinks, Säfte, Schorlen]",
+          "price": "[0,00 €]"
+        }
+      ]
+    },
+    {
+      "type": "hinweistext",
+      "title": "",
+      "text": "Unsere Konditorei bereitet täglich zwei frische Kuchen für Sie zu – gerne informiert Sie unser Service über die aktuelle Auswahl.",
+      "wide": false,
+      "accent": false,
+      "hint_title": "",
+      "hint_text": "",
+      "items": []
+    }
+  ],
+  "footnotes": [
+    {
+      "title": "Vegetarisch & vegan · Allergene",
+      "text": "Vegetarische und vegane Gerichte bereiten wir Ihnen gerne auf Anfrage zu. Informationen zu enthaltenen Allergenen erhalten Sie auf Wunsch von unserem Servicepersonal."
+    },
+    {
+      "title": "Private Feiern & Events",
+      "text": "Sprechen Sie uns gerne an. Gutscheine erhältlich im Restaurant."
+    }
+  ]
+}

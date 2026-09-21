@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Einfacher Passwortschutz für die Vorschau-Seite (rein client-seitig) -->
+<script>
+  var password = prompt("Bitte gib das Passwort ein, um die Vorschau-Seite zu sehen:");
+  if (password !== "1292") {
+    alert("Falsches Passwort!");
+    window.location.href = "about:blank";
+  }
+</script>
+
+<!-- ============================================================
+     NIDDAHAUS – Restaurant · Café · Terrasse – Vorschau-Website
+     Huizener Str. 9 · 61118 Bad Vilbel · 06101 44342
+     ------------------------------------------------------------
+     ONE-PAGER. Auch die Speisekarte ist ein Sektor dieser Seite
+     (#speisekarte). Sprungknöpfe stehen in der Navigation, im
+     Hero und in einem eigenen Hinweis-Sektor.
+
+     SPEISEKARTE
+       Vollständig aus der echten, öffentlich ausgehängten Karte
+       übernommen (Google-Maps-Foto). Nichts erfunden.
+       Einzige Ausnahme: die Sektion GETRÄNKE – die stand nicht
+       auf der Karte und ist deshalb durchgehend Platzhalter.
+
+     BILDER
+       Alle Fotos stammen vom Google-Business-Profil von NIDDAHAUS
+       (keine Stockfotos mehr). Vollständige Quellenliste inkl.
+       Original-Links in BILDQUELLEN.md. Das Profil enthält aktuell
+       keine Einzelfotos von Schnitzel, Steak, Lachs, Dessert oder
+       Wein – die Impressionen-Galerie wurde deshalb entfernt, bis
+       echte Fotos dieser Gerichte vorliegen (siehe BILDQUELLEN.md).
+
+     KARTE (Kontakt-Sektor)
+       Echtes Google-Maps-Embed des Standorts, aber per Zwei-Klick-
+       Lösung: das <iframe> wird erst nach Klick auf „Karte laden"
+       ins DOM eingefügt, vorher keine Verbindung zu Google. Kein
+       Cookie-Banner nötig, weil ohne aktiven Klick nichts lädt.
+       Siehe datenschutz.html, Abschnitt „Externe Einbettungen".
+
+     BEWERTUNGEN
+       Alle 6 Zitate sind echte 5-Sterne-Google-Rezensionen von NIDDAHAUS
+       (Stand 20.09.2026), nichts erfunden. Aus Datenschutzgründen nur
+       Vorname + Nachname-Initiale, kein Profilbild, kein Profil-Link.
+       Details: datenschutz.html, Abschnitt „Kundenstimmen".
+
+     OFFENE ANGABEN stehen in eckigen Klammern:  [ … ]
+       · Getränkekarte
+       · [E-Mail] sowie alle [Platzhalter] in impressum.html /
+         datenschutz.html
+
+     DESIGN: Navyblau + helles Beige, Gold ausschließlich für
+     Titel/Kicker. Volltonflächen – keine Verläufe auf Schrift,
+     Knöpfen oder Hintergründen. Einzige Ausnahme: die Navy-Abdunk-
+     lung über dem CTA-Foto, damit weiße Schrift lesbar bleibt. Der
+     Hero zeigt das Foto unverdeckt, nur die Scroll-Abblendung
+     (hero-scrim) bleibt. Keinerlei Animation auf den Bildern selbst.
+     ============================================================ -->
+
+<title>NIDDAHAUS – Restaurant, Café &amp; Terrasse in Bad Vilbel</title>
+<meta name="description" content="NIDDAHAUS in Bad Vilbel am Niddaufer: moderne deutsche Küche mit Schnitzel, Steaks, frischem Fisch und saisonalen Gerichten. Restaurant, Café und sonnige Terrasse. Jetzt anrufen: 06101 44342.">
+<meta name="theme-color" content="#0F2440">
+<meta property="og:title" content="NIDDAHAUS – Restaurant · Café · Terrasse in Bad Vilbel">
+<meta property="og:description" content="Moderne deutsche Küche am Niddaufer. Schnitzel, Steaks, frischer Fisch, Weine, Kaffee und hausgemachte Desserts.">
+<meta property="og:type" content="restaurant">
+<link rel="icon" type="image/svg+xml" href="images/icons/favicon.svg">
+<link href="fonts.css" rel="stylesheet">
+<style>
+  /* ============================================================
+     FARB- UND DESIGN-SYSTEM
+     Navy = dunkler Sektionshintergrund, weiße Schrift.
+     Beige = heller Sektionshintergrund, schwarze/navy Schrift.
+     Gold = AUSSCHLIESSLICH Titel, Kicker und die Wortmarke.
+     Keine Verläufe. Alle Flächen sind Volltöne.
+     ============================================================ */
+  :root{
+    --navy:#0F2440;
+    --navy-2:#16304F;        /* Panels auf Navy – Vollton, kein Verlauf */
+    --navy-3:#1D3A5E;        /* Hairlines / Rahmen auf Navy */
+    --beige:#F2E9D8;
+    --beige-2:#E8DCC5;       /* Panels auf Beige */
+    --beige-3:#D6C6A8;       /* Hairlines / Rahmen auf Beige */
+    --gold:#C29A45;          /* Titel auf Navy */
+    --gold-dark:#8A6B22;     /* Titel auf Beige (dunkler für Kontrast) */
+    --ink:#12161C;           /* Fließtext auf Beige */
+    --ink-2:#3E4756;         /* Sekundärtext auf Beige */
+    --white:#FFFFFF;
+    --white-2:rgba(255,255,255,.80);   /* Sekundärtext auf Navy */
+    --white-3:rgba(255,255,255,.62);
+    /* Status „geöffnet / geschlossen" – farbige SCHRIFT mit Live-Punkt, kein Knopf.
+       Zwei Farbsätze, weil der Status sowohl auf Navy (Hero) als auch auf
+       Beige (Kontakt) steht und beide Male kontrastreich sein muss. */
+    --open-dark:#5FD98D;   --closed-dark:#FF8172;
+    --open-light:#12703C;  --closed-light:#8F2018;
+
+    --maxw:1200px;
+    --spring:cubic-bezier(.32,.72,0,1);
+    --ease:cubic-bezier(.25,.1,.25,1);
+    --navh:58px;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+  body{
+    margin:0; background:var(--navy); color:var(--white);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter",
+                "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:17px; line-height:1.55; font-weight:400;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    /* clip statt hidden – hidden würde position:sticky im Hero aushebeln */
+    overflow-x:clip;
+    /* lange Wörter (z. B. „Petersilien-Kartoffelstampf") dürfen auf schmalen
+       Displays nicht aus ihrem Container laufen */
+    overflow-wrap:break-word;
+  }
+  /* Grid-/Flex-Kinder dürfen unter ihre Inhaltsbreite schrumpfen –
+     sonst erzeugt ein einzelner langer Text horizontales Scrollen */
+  .cards > *, .menu-grid > *, .contact-grid > *, .welcome > *, .f-top > *{ min-width:0; }
+  h1,h2,h3,h4{ margin:0; font-weight:600; letter-spacing:-.028em; line-height:1.08; text-wrap:balance; }
+  a{ color:inherit; text-decoration:none; }
+  img,svg{ display:block; max-width:100%; }
+  p{ margin:0; }
+  figure{ margin:0; }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 30px; position:relative; z-index:1; }
+  section{ position:relative; padding:120px 0; scroll-margin-top:var(--navh); }
+  ::selection{ background:rgba(194,154,69,.35); }
+  a:focus-visible,button:focus-visible{ outline:2px solid var(--gold); outline-offset:3px; border-radius:6px; }
+
+  /* Sektionsflächen – Volltöne, wechselnder Rhythmus */
+  .s-navy { background:var(--navy);  color:var(--white); }
+  .s-beige{ background:var(--beige); color:var(--ink); }
+
+  /* ===== WORTMARKE (nach dem Vorbild der echten Speisekarte) ===== */
+  .mark{ display:inline-block; text-align:center; }
+  .mark b{ display:block; font-weight:600; letter-spacing:.22em; }
+  .mark i{ display:block; font-style:normal; letter-spacing:.24em; text-transform:uppercase; }
+  .mark .rule{ display:block; height:1px; margin:6px 0 5px; background:currentColor; opacity:.55; }
+
+  /* ===== KNÖPFE – nur Navy oder Beige gefüllt, niemals Gold ===== */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    padding:14px 26px; border-radius:980px; font-size:16px; font-weight:500;
+    font-family:inherit; letter-spacing:-.01em; border:1.5px solid transparent; cursor:pointer;
+    transition:transform .4s var(--spring), background .3s var(--ease),
+               border-color .3s var(--ease), color .3s var(--ease);
+  }
+  .btn svg{ width:18px; height:18px; flex:0 0 auto; }
+  .btn:hover{ transform:translateY(-2px); }
+  .btn-sm{ padding:9px 18px; font-size:15px; }
+  /* auf Navy / auf dem Hero-Foto */
+  .btn-beige{ background:var(--beige); color:var(--navy); }
+  .btn-beige:hover{ background:var(--white); }
+  .btn-obeige{ background:transparent; color:var(--white); border-color:rgba(255,255,255,.55); }
+  .btn-obeige:hover{ background:rgba(255,255,255,.12); border-color:var(--white); }
+  /* auf Beige */
+  .btn-navy{ background:var(--navy); color:var(--white); }
+  .btn-navy:hover{ background:var(--navy-2); }
+  .btn-onavy{ background:transparent; color:var(--navy); border-color:var(--navy); }
+  .btn-onavy:hover{ background:var(--navy); color:var(--white); }
+
+  /* ===== NAVIGATION – immer sichtbar, mit allen Sprungzielen ===== */
+  .progress{
+    position:fixed; top:0; left:0; height:2px; z-index:80; width:100%;
+    transform:scaleX(var(--sp,0)); transform-origin:0 50%; background:var(--gold);
+  }
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:70;
+    background:rgba(15,36,64,.82); border-bottom:1px solid rgba(255,255,255,.10);
+    backdrop-filter:saturate(180%) blur(20px); -webkit-backdrop-filter:saturate(180%) blur(20px);
+  }
+  .nav .wrap{ display:flex; align-items:center; justify-content:space-between; gap:20px; height:var(--navh); }
+  .nav .mark{ color:var(--gold); flex:0 0 auto; }      /* Wortmarke = Titel → Gold erlaubt */
+  .nav .mark b{ font-size:15px; }
+  .nav .mark i{ font-size:7.5px; }
+  .nav-links{ display:flex; align-items:center; gap:22px; }
+  .nav-links > a{ font-size:14px; color:rgba(255,255,255,.80); letter-spacing:-.005em; transition:color .25s; white-space:nowrap; }
+  .nav-links > a:hover{ color:var(--white); }
+  .nav-links > a.active{ color:var(--white); box-shadow:inset 0 -2px 0 0 var(--gold); }
+  /* Auf dem Desktop stehen die beiden Knöpfe rechts hinter den Links,
+     im Klappmenü (unter 1020 px) dagegen ganz oben – siehe Media-Query. */
+  .nav-cta{ display:flex; align-items:center; gap:10px; order:2; margin-left:6px; }
+  .nav-toggle{ display:none; background:none; border:none; color:var(--white); cursor:pointer; padding:6px; }
+  .nav-toggle svg{ width:24px; height:24px; }
+
+  /* ===== HERO ===== */
+  .hero-stage{ height:135vh; position:relative; }
+  .hero{
+    position:sticky; top:0; height:100vh; height:100svh;
+    display:flex; align-items:flex-end; overflow:hidden; background:var(--navy);
+  }
+  /* Das Foto selbst bekommt KEINE Animation, keine Transition, kein transform.
+     Das Verblassen beim Scrollen macht ausschließlich das Navy-Scrim darüber. */
+  .hero-media{ position:absolute; inset:0; z-index:0; }
+  .hero-media img{ width:100%; height:100%; object-fit:cover; object-position:50% 55%; }
+  .hero-scrim{ position:absolute; inset:0; z-index:3; background:var(--navy); opacity:var(--p,0); }
+  .hero-inner{
+    position:relative; z-index:4; width:100%; padding-bottom:56px; padding-top:100px;
+    transform:translateY(calc(var(--p,0) * -9vh));
+    opacity:clamp(0, calc(1 - 1.35 * var(--p,0)), 1);
+    will-change:transform, opacity;
+  }
+  .hero .mark{ color:var(--gold); text-align:left; }
+  .hero .mark b{ font-size:clamp(38px,8.4vw,86px); letter-spacing:.18em; line-height:1; }
+  .hero .mark .rule{ margin:14px 0 10px; }
+  .hero .mark i{ font-size:clamp(10px,1.5vw,14px); }
+  .hero .claim{
+    margin-top:26px; max-width:32ch; font-size:clamp(19px,2.4vw,27px);
+    color:var(--white); font-weight:500; letter-spacing:-.02em; line-height:1.24;
+  }
+  .hero .sub{ margin-top:14px; max-width:46ch; font-size:17px; color:var(--white-2); }
+  .cta-row{ margin-top:32px; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+  .hero-bottom{ margin-top:34px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+  .hero .anim{ opacity:0; transform:translateY(24px); animation:heroIn 1s var(--spring) forwards; }
+  .hero .a1{ animation-delay:.08s; } .hero .a2{ animation-delay:.22s; }
+  .hero .a3{ animation-delay:.36s; } .hero .a4{ animation-delay:.5s; }
+
+  /* ===== GEÖFFNET / GESCHLOSSEN =====
+     Bewusst KEIN Knopf: nur farbige Schrift mit einem Live-Punkt davor.
+     Kein Hintergrund, kein Rahmen, keine Pille. */
+  .live{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:0; border:none; background:none; border-radius:0;
+    font-size:16px; font-weight:600; letter-spacing:-.01em;
+    color:var(--open-dark);                       /* Standard: auf Navy (Hero) */
+  }
+  .live[hidden]{ display:none; }
+  .live.shut{ color:var(--closed-dark); }
+  .s-beige .live{ color:var(--open-light); }      /* auf Beige (Kontakt) */
+  .s-beige .live.shut{ color:var(--closed-light); }
+  .live i{
+    width:10px; height:10px; border-radius:50%; background:currentColor; flex:0 0 auto;
+    box-shadow:0 0 0 0 currentColor; animation:livedot 2.4s var(--ease) infinite;
+  }
+  .live.shut i{ animation:none; }                 /* geschlossen pulsiert nicht */
+  .live small{ font-weight:400; opacity:.85; font-size:15px; }
+
+  /* ===== SEKTIONSKÖPFE ===== */
+  .kicker{
+    display:inline-flex; align-items:center; gap:10px; font-size:12px; font-weight:600;
+    letter-spacing:.17em; text-transform:uppercase; margin-bottom:18px;
+  }
+  .kicker::before{ content:""; width:22px; height:2px; background:currentColor; }
+  .s-navy  .kicker, .s-navy  h2, .s-navy  h3.gold{ color:var(--gold); }
+  .s-beige .kicker, .s-beige h2, .s-beige h3.gold{ color:var(--gold-dark); }
+  .section-head{ max-width:760px; margin-bottom:56px; }
+  .section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
+  .section-head.center .kicker{ justify-content:center; }
+  .section-head h2{ font-size:clamp(31px,5vw,54px); }
+  .section-head p{ margin-top:20px; font-size:18px; max-width:60ch; }
+  .s-navy  .section-head p{ color:var(--white-2); }
+  .s-beige .section-head p{ color:var(--ink-2); }
+  .section-head.center p{ margin-left:auto; margin-right:auto; }
+
+  /* ===== WILLKOMMEN ===== */
+  .welcome{ display:grid; grid-template-columns:1.05fr .95fr; gap:64px; align-items:center; }
+  .welcome p{ font-size:17.5px; color:var(--ink-2); margin-bottom:16px; letter-spacing:-.01em; }
+  .quote{
+    margin:0 0 28px; padding:24px 26px; background:var(--beige-2);
+    border-left:3px solid var(--navy); border-radius:0 14px 14px 0;
+  }
+  .quote span{ display:block; font-size:clamp(19px,2.3vw,24px); font-weight:600;
+    color:var(--navy); letter-spacing:-.022em; line-height:1.3; }
+  .quote small{ display:block; margin-top:9px; font-size:12.5px; font-weight:600;
+    letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); }
+  .shot{ border-radius:22px; overflow:hidden; border:1px solid var(--beige-3); aspect-ratio:4/5; background:var(--beige-2); }
+  .shot img{ width:100%; height:100%; object-fit:cover; }
+
+  /* ===== KÜCHE-KARTEN ===== */
+  .cards{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; max-width:760px; margin:0 auto; }
+  .card{
+    border-radius:20px; overflow:hidden; background:var(--navy-2);
+    border:1px solid var(--navy-3); display:flex; flex-direction:column;
+    transition:transform .5s var(--spring), border-color .3s var(--ease);
+  }
+  .card:hover{ transform:translateY(-6px); border-color:var(--gold); }
+  .card-img{ aspect-ratio:16/11; overflow:hidden; background:var(--navy-3); }
+  .card-img img{ width:100%; height:100%; object-fit:cover; }  /* bewusst ohne Animation */
+  .card-body{ padding:24px 26px 28px; display:flex; flex-direction:column; gap:10px; }
+  .card h3{ font-size:20px; color:var(--gold); letter-spacing:-.024em; }
+  .card p{ font-size:15.5px; color:var(--white-2); letter-spacing:-.008em; }
+
+  /* ===== BEWERTUNGEN ===== */
+  .rating{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:20px 56px; margin-bottom:52px; }
+  .stat{ text-align:center; }
+  .stat .num{
+    font-size:clamp(52px,8vw,84px); font-weight:600; line-height:1;
+    letter-spacing:-.04em; color:var(--navy); font-variant-numeric:tabular-nums;
+  }
+  .stat .lab{ margin-top:8px; font-size:13px; font-weight:600; letter-spacing:.13em;
+    text-transform:uppercase; color:var(--ink-2); }
+  .stars{ display:flex; gap:4px; justify-content:center; margin-top:12px; color:var(--gold-dark); }
+  .stars svg{ width:20px; height:20px; }
+  .g-note{ display:flex; align-items:center; gap:9px; font-size:14.5px; color:var(--ink-2); }
+  .g-note svg{ width:17px; height:17px; }
+
+  .marquee{ overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent); }
+  .track{ display:flex; gap:20px; width:max-content; padding:4px 0; }
+  .track.ready{ animation:marquee 58s linear infinite; }
+  .marquee:hover .track.ready{ animation-play-state:paused; }
+  .rev{
+    flex:0 0 330px; width:330px; background:var(--beige-2); border:1px solid var(--beige-3);
+    border-radius:18px; padding:26px 26px 24px;
+  }
+  .rev .stars{ justify-content:flex-start; margin:0 0 14px; }
+  .rev p{ font-size:16px; color:var(--ink); letter-spacing:-.01em; margin-bottom:16px; }
+  .rev .who{ font-size:14px; font-weight:600; color:var(--ink-2); }
+
+  /* ===== SPEISEKARTEN-HINWEIS ===== */
+  .menu-teaser{ padding:96px 0; text-align:center; }
+  .menu-teaser h2{ font-size:clamp(27px,4vw,42px); color:var(--gold); }
+  .menu-teaser p{ margin:18px auto 30px; max-width:52ch; font-size:18px; color:var(--white-2); }
+
+  /* ===== SPEISEKARTE ===== */
+  .menu-top{ text-align:center; margin-bottom:58px; }
+  .menu-top h2{ font-size:clamp(34px,6vw,62px); color:var(--gold-dark); }
+  .menu-top .mark{ color:var(--ink); margin-bottom:22px; }
+  .menu-top .mark b{ font-size:17px; } .menu-top .mark i{ font-size:8px; }
+  .menu-top .back{ margin-top:26px; }
+  .menu-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; align-items:start; }
+  .menu-grid:empty::before{ content:attr(data-loading); grid-column:1/-1; text-align:center; color:var(--ink-2); padding:40px 0; }
+  .cat{
+    background:var(--beige-2); border:1px solid var(--beige-3);
+    border-radius:18px; padding:26px 28px 20px;
+  }
+  .cat.wide{ grid-column:1 / -1; }
+  .cat.steaks{ border-color:var(--gold-dark); border-width:2px; }
+  .cat h3{ font-size:16px; font-weight:700; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--gold-dark); margin-bottom:6px; }
+  .cat .intro{ font-size:14.5px; color:var(--ink-2); margin-bottom:14px; letter-spacing:-.005em; }
+  .cat .items{ display:grid; grid-template-columns:1fr; }
+  .cat.wide .items{ grid-template-columns:1fr 1fr; column-gap:34px; }
+  .mi{ display:flex; justify-content:space-between; gap:20px; align-items:baseline;
+    padding:13px 0; border-bottom:1px solid var(--beige-3); }
+  .cat .items > .mi:last-child{ border-bottom:none; }
+  /* Im zweispaltigen Klassiker-Block enden ZWEI Einträge unten – beide ohne Trennlinie */
+  .cat.wide .items > .mi:nth-last-child(-n+2){ border-bottom:none; }
+  .mi-name{ font-size:16px; font-weight:600; color:var(--ink); letter-spacing:-.012em; }
+  .mi-name em{ font-style:normal; font-weight:600; color:var(--navy); margin-right:5px; }
+  .mi-desc{ margin-top:3px; font-size:14px; color:var(--ink-2); letter-spacing:-.005em; line-height:1.42; }
+  .mi-price{ font-size:16px; font-weight:700; color:var(--navy); white-space:nowrap;
+    font-variant-numeric:tabular-nums; }
+  .box{
+    background:var(--navy); color:var(--white); border-radius:18px; padding:28px 30px; text-align:center;
+  }
+  .box h3{ font-size:15px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:12px; }
+  .box .d{ font-size:18px; font-weight:600; letter-spacing:-.018em; }
+  .box .dd{ margin-top:6px; font-size:15px; color:var(--white-2); }
+  .box .pr{ margin-top:14px; font-size:20px; font-weight:700; font-variant-numeric:tabular-nums; }
+  .box p{ font-size:15.5px; color:var(--white-2); }
+  .hint{
+    display:flex; gap:14px; align-items:flex-start; margin-bottom:14px; padding:16px 18px;
+    border-radius:14px; border:1px dashed var(--navy); background:transparent;
+  }
+  .hint svg{ width:20px; height:20px; color:var(--navy); flex:0 0 auto; margin-top:2px; }
+  .hint p{ font-size:14.5px; color:var(--ink-2); }
+  .hint b{ display:block; color:var(--ink); margin-bottom:3px; font-size:15px; }
+  .menu-foot{ margin-top:34px; display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  .menu-foot .note{ background:var(--beige-2); border:1px solid var(--beige-3);
+    border-radius:18px; padding:24px 26px; font-size:15.5px; color:var(--ink-2); }
+  .menu-foot .note b{ display:block; color:var(--ink); margin-bottom:6px; }
+  .menu-end{ margin-top:44px; text-align:center; }
+  .menu-end p{ margin-bottom:22px; font-size:17px; color:var(--ink-2); }
+
+  /* ===== ÖFFNUNGSZEITEN & KONTAKT ===== */
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:52px; align-items:start; }
+  .contact-info p{ font-size:17.5px; margin-bottom:20px; letter-spacing:-.012em; }
+  .contact-info .u{ color:var(--navy); text-decoration:underline; text-underline-offset:4px;
+    text-decoration-color:var(--beige-3); transition:text-decoration-color .25s; }
+  .contact-info .u:hover{ text-decoration-color:var(--navy); }
+  .contact-info .btn{ margin:6px 10px 0 0; }
+  .hours{ background:var(--beige-2); border:1px solid var(--beige-3); border-radius:20px; padding:30px 30px 26px; }
+  .hours-top{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+  .hours-top h3{ font-size:15px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--gold-dark); }
+  table.h{ width:100%; border-collapse:collapse; font-size:16px; }
+  table.h td{ padding:12px 0; border-bottom:1px solid var(--beige-3); letter-spacing:-.01em; }
+  table.h td:first-child{ color:var(--ink-2); }
+  table.h td:last-child{ text-align:right; color:var(--ink); font-variant-numeric:tabular-nums; white-space:nowrap; }
+  table.h tr:last-child td{ border-bottom:none; }
+  table.h tr.today td{ color:var(--navy); font-weight:700; }
+  table.h tr.shut td:last-child{ color:var(--closed-light); font-weight:600; }
+  .hours-note{ margin-top:16px; font-size:13.5px; color:var(--ink-2); }
+
+  /* ===== KARTE (Zwei-Klick-Lösung) =====
+     Die Google-Maps-Karte wird NICHT automatisch geladen. Erst ein aktiver
+     Klick auf „Karte laden" fügt das <iframe> ins DOM ein – vorher findet
+     keinerlei Verbindung zu Google statt (kein Cookie-Banner nötig). */
+  .map-embed{ margin-top:26px; background:var(--beige-2); border:1px solid var(--beige-3);
+    border-radius:20px; padding:26px 28px; }
+  .map-embed h3{ font-size:15px; font-weight:700; letter-spacing:.15em; text-transform:uppercase;
+    color:var(--gold-dark); margin-bottom:10px; }
+  .map-embed p{ font-size:14.5px; margin-bottom:18px; color:var(--ink-2); }
+  .map-embed iframe{ width:100%; height:320px; display:block; border:0; border-radius:12px; }
+
+  /* ===== CTA-BAND ===== */
+  .cta{ position:relative; overflow:hidden; text-align:center; padding:140px 0; }
+  .cta-bg{ position:absolute; inset:0; z-index:0; }
+  .cta-bg img{ width:100%; height:100%; object-fit:cover; }
+  .cta-bg::after{ content:""; position:absolute; inset:0; background:rgba(15,36,64,.82); }
+  .cta h2{ font-size:clamp(31px,5vw,54px); color:var(--gold); }
+  .cta p{ margin:20px auto 32px; max-width:50ch; font-size:18px; color:var(--white-2); }
+  .cta .cta-row{ justify-content:center; }
+
+  /* ===== FOOTER ===== */
+  footer{ background:var(--navy); border-top:1px solid var(--navy-3); padding:66px 0 30px; font-size:15px; }
+  .f-top{ display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:44px; padding-bottom:38px; border-bottom:1px solid var(--navy-3); }
+  .f-top .mark{ color:var(--gold); text-align:left; margin-bottom:16px; }
+  .f-top .mark b{ font-size:19px; } .f-top .mark i{ font-size:8.5px; }
+  .f-top p{ color:var(--white-2); max-width:38ch; font-size:15px; }
+  .f-col h4{ margin:0 0 15px; font-size:12px; font-weight:700; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--gold); }
+  .f-col a{ display:block; color:var(--white-2); margin-bottom:10px; transition:color .25s; }
+  .f-col a:hover{ color:var(--white); }
+  .f-bottom{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+    padding-top:24px; color:var(--white-3); font-size:13.5px; }
+  .f-bottom a{ color:var(--white-3); } .f-bottom a:hover{ color:var(--white); }
+  .f-legal{ display:flex; gap:20px; }
+
+  /* ===== REVEAL ===== */
+  .rv{ opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease), transform .85s var(--spring); }
+  .rv.in{ opacity:1; transform:none; }
+  .rv.d1{ transition-delay:.09s; } .rv.d2{ transition-delay:.18s; } .rv.d3{ transition-delay:.27s; }
+  .split .w{ display:inline-block; opacity:0; transform:translateY(.38em);
+    transition:opacity .65s var(--ease), transform .75s var(--spring); }
+  .split.in .w{ opacity:1; transform:none; }
+
+  /* ===== KEYFRAMES ===== */
+  @keyframes heroIn{ to{ opacity:1; transform:none; } }
+  @keyframes marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+  /* Live-Punkt: sanfter Ring, damit „jetzt geöffnet" als Live-Zustand lesbar ist */
+  @keyframes livedot{
+    0%   { box-shadow:0 0 0 0 currentColor; opacity:1; }
+    70%  { box-shadow:0 0 0 6px transparent; opacity:.75; }
+    100% { box-shadow:0 0 0 0 transparent; opacity:1; }
+  }
+
+  /* ===== REDUCED MOTION ===== */
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    .hero-stage{ height:auto; } .hero{ position:relative; }
+    .hero-inner{ transform:none !important; opacity:1 !important; }
+    .hero-scrim{ opacity:0 !important; }
+    .hero .anim{ opacity:1; transform:none; animation:none; }
+    .track.ready{ animation:none !important; }
+    .live i{ animation:none !important; box-shadow:none !important; }
+    .rv{ opacity:1; transform:none; transition:none; }
+    .split .w{ opacity:1; transform:none; transition:none; }
+    .card:hover,.btn:hover{ transform:none; }
+  }
+
+  /* ============================================================
+     RESPONSIVE – Breakpoints 1440 / 1024 / 768 / 480
+     Grundlayout ist Desktop (1025–1439 px). Alle Raster sind Grid
+     oder Flexbox, kein festes Pixel-Layout. Ab 1024 px klappt die
+     Navigation ins Burger-Menü und alle Bedienflächen sind ≥ 44 px
+     hoch (Touch-Zielgröße). Geprüft bis herunter zu 320 px.
+     ============================================================ */
+
+  /* ---- Große Desktops ab 1440 px: mehr Fläche, etwas größere Typo ---- */
+  @media (min-width:1440px){
+    :root{ --maxw:1320px; }
+    body{ font-size:18px; }
+    section{ padding:140px 0; }
+    .cards{ gap:26px; }
+    .menu-grid{ gap:26px; }
+    .welcome{ gap:80px; }
+    .contact-grid{ gap:64px; }
+  }
+
+  /* ---- Tablet bis 1024 px: Burger-Menü, Raster auf zwei Spalten ---- */
+  @media (max-width:1024px){
+    section{ padding:92px 0; }
+    .wrap{ padding:0 26px; }
+    .welcome{ grid-template-columns:1fr; gap:44px; }
+    .welcome .shot{ max-width:560px; aspect-ratio:4/3; }
+    .cat.wide .items{ grid-template-columns:1fr; }
+
+    /* Navigation klappt ein */
+    .nav-toggle{ display:inline-flex; order:3; }
+    .nav .wrap{ flex-wrap:wrap; }
+    .nav-links{
+      position:fixed; top:var(--navh); left:0; right:0; flex-direction:column; align-items:stretch; gap:0;
+      padding:10px 0 16px; display:none; max-height:calc(100vh - var(--navh)); overflow-y:auto;
+      background:rgba(15,36,64,.97); border-bottom:1px solid var(--navy-3);
+      backdrop-filter:saturate(180%) blur(20px); -webkit-backdrop-filter:saturate(180%) blur(20px);
+    }
+    .nav-links.open{ display:flex; }
+    .nav-links > a{ display:flex; align-items:center; min-height:48px; padding:12px 26px;
+      font-size:16px; color:var(--white); }
+    .nav-links > a.active{ box-shadow:inset 3px 0 0 0 var(--gold); }
+    /* Die beiden Knöpfe stehen im Klappmenü ganz oben */
+    .nav-cta{ order:-1; flex-direction:column; align-items:stretch; gap:10px; padding:6px 26px 14px;
+      border-bottom:1px solid var(--navy-3); margin:0 0 6px; }
+    .nav-cta .btn{ width:100%; }
+    /* Touch-Zielgröße: jeder Knopf mindestens 44 px hoch */
+    .btn{ min-height:48px; }
+    .btn-sm{ min-height:44px; padding:11px 20px; font-size:15.5px; }
+    .nav-toggle{ min-width:44px; min-height:44px; align-items:center; justify-content:center; }
+    .hero-stage{ height:125vh; }
+  }
+
+  /* ---- Smartphone bis 768 px: alles einspaltig ---- */
+  @media (max-width:768px){
+    section{ padding:78px 0; }
+    .wrap{ padding:0 20px; }
+    .section-head{ margin-bottom:42px; }
+    .cards{ grid-template-columns:1fr; max-width:480px; }
+    .menu-grid{ grid-template-columns:1fr; }
+    .menu-foot{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; gap:40px; }
+    .f-top{ grid-template-columns:1fr; gap:32px; }
+    .hero-inner{ padding-bottom:44px; }
+    .rating{ gap:26px 40px; }
+    .cta{ padding:100px 0; }
+    .cat{ padding:24px 22px 18px; }
+    .hours{ padding:26px 22px 22px; }
+    /* Kleinschrift auf Mobil anheben, damit sie lesbar bleibt */
+    .mi-desc, .cat .intro{ font-size:14.5px; }
+    .hours-note, .f-bottom, .rev .who{ font-size:14px; }
+    .stat .lab{ font-size:13.5px; }
+    .kicker{ font-size:13px; letter-spacing:.14em; }
+  }
+
+  /* ---- Kleine Smartphones bis 480 px (bis hinunter zu 320 px geprüft) ---- */
+  @media (max-width:480px){
+    .wrap{ padding:0 16px; }
+    section{ padding:66px 0; }
+    /* Wortmarke skaliert mit der Breite, statt sie zu sprengen */
+    .hero .mark b{ font-size:clamp(30px,9.4vw,64px); letter-spacing:.08em; }
+    .hero .mark i{ letter-spacing:.16em; }
+    /* Knöpfe volle Breite und gut treffbar */
+    .cta-row, .menu-end, .menu-top .back{ display:flex; flex-direction:column; align-items:stretch; gap:12px; }
+    .cta-row .btn, .contact-info .btn, .menu-teaser .btn, .menu-end .btn, .menu-top .back .btn{
+      width:100%; margin:0; }
+    .contact-info .btn + .btn{ margin-top:12px; }
+    .rev{ flex:0 0 258px; width:258px; }
+    .rating{ gap:22px 28px; }
+    /* Öffnungszeiten stapeln – „11:30–14:30 · 17:00–22:00" passt sonst nicht neben den Tag */
+    table.h, table.h tbody, table.h tr, table.h td{ display:block; width:100%; }
+    table.h tr{ padding:11px 0; border-bottom:1px solid var(--beige-3); }
+    table.h tr:last-child{ border-bottom:none; }
+    table.h td{ padding:0; border:none; }
+    table.h td:last-child{ text-align:left; margin-top:2px; white-space:normal; }
+    .mi{ gap:12px; }
+    .box{ padding:24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- ===== NAVIGATION – enthält in jeder Scroll-Position alle wichtigen Sprungziele ===== -->
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a class="mark" href="#top" aria-label="NIDDAHAUS – zum Seitenanfang">
+      <b>NIDDAHAUS</b><span class="rule"></span><i>Bad&nbsp;Vilbel</i>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navlinks">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <div class="nav-links" id="navlinks">
+      <div class="nav-cta">
+        <a class="btn btn-beige btn-sm" href="#speisekarte">Speisekarte</a>
+        <a class="btn btn-obeige btn-sm" href="tel:+49610144342">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+          Anrufen
+        </a>
+      </div>
+      <a href="#willkommen">Willkommen</a>
+      <a href="#kueche">Küche</a>
+      <a href="#bewertungen">Bewertungen</a>
+      <a href="#speisekarte">Speisekarte</a>
+      <a href="#kontakt">Öffnungszeiten &amp; Kontakt</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<div class="hero-stage" id="heroStage">
+  <header class="hero" id="top">
+    <div class="hero-media" aria-hidden="true"><img src="images/hero.jpg" alt=""></div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+
+    <div class="wrap hero-inner">
+      <h1 class="mark anim a1"><b>NIDDAHAUS</b><span class="rule"></span><i>Restaurant · Café · Terrasse</i></h1>
+      <p class="claim anim a2">Gutes Essen, ein guter Platz – direkt am Niddaufer.</p>
+      <p class="sub anim a2">Moderne deutsche Küche in Bad Vilbel: Schnitzel, Steaks, frischer Fisch
+        und saisonale Gerichte. Dazu Weine, Kaffee und hausgemachte Desserts.</p>
+      <div class="cta-row anim a3">
+        <a class="btn btn-beige" href="tel:+49610144342">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+          06101 44342
+        </a>
+        <a class="btn btn-obeige" href="#speisekarte">Speisekarte ansehen</a>
+      </div>
+      <div class="hero-bottom anim a4">
+        <span class="live" data-live hidden><i></i><span data-live-text></span></span>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!-- ===== WILLKOMMEN ===== -->
+<section class="s-beige" id="willkommen">
+  <div class="wrap welcome">
+    <div class="rv">
+      <span class="kicker">Willkommen</span>
+      <h2 class="split" style="font-size:clamp(29px,4.4vw,48px);">Willkommen im NIDDAHAUS.</h2>
+      <p style="margin-top:24px;">Restaurant · Café · Terrasse in Bad Vilbel am Niddaufer. Wir bieten eine
+        moderne deutsche Küche mit beliebten Klassikern wie Schnitzel, Steaks, frischem Fisch sowie
+        saisonalen Gerichten. Dazu servieren wir ausgewählte Weine, Kaffee und hausgemachte Desserts.</p>
+      <p>Genießen Sie unsere gemütliche Atmosphäre im Restaurant oder auf der sonnigen Terrasse direkt
+        am Tennisclub Bad Vilbel. Ideal für Mittagessen, Abendessen, Familienfeiern oder einfach einen
+        schönen Abend mit Freunden. Wir freuen uns auf Ihren Besuch im NIDDAHAUS!</p>
+      <div class="quote" style="margin-top:30px;">
+        <span>„Mit über 10 Jahren im Frankfurter Hof Bergen-Enkheim“</span>
+        <small>Erfahrung, die auf dem Teller ankommt</small>
+      </div>
+    </div>
+    <div class="shot rv d1">
+      <img src="images/g-interieur.jpg" alt="Gedeckter Tisch mit Weingläsern und Servietten im Restaurant" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- ===== UNSERE KÜCHE ===== -->
+<section class="s-navy" id="kueche">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="kicker">Unsere Küche</span>
+      <h2 class="split">Klassiker und ein Stück Kuchen.</h2>
+      <p>Was Sie bei uns erwartet – von der Mittagskarte bis zum Kaffee am Nachmittag.</p>
+    </div>
+    <div class="cards">
+      <article class="card rv">
+        <div class="card-img"><img src="images/karte-klassiker.jpg" alt="Vorspeisenteller mit Parmaschinken, Melone und Rucola" loading="lazy"></div>
+        <div class="card-body">
+          <h3>Deutsche Klassiker</h3>
+          <p>Schnitzel Wiener Art, Rahmschnitzel, Cordon Bleu, Frankfurter Grüne Soße und Tafelspitz
+            vom Kalb – dazu argentinische Steaks und frischer Fisch vom Grill.</p>
+        </div>
+      </article>
+      <article class="card rv d1">
+        <div class="card-img"><img src="images/karte-konditorei.jpg" alt="Bruschetta mit Tomate, Rucola und Parmesan" loading="lazy"></div>
+        <div class="card-body">
+          <h3>Wein, Kaffee &amp; Konditorei</h3>
+          <p>Ausgewählte Weine, Kaffee und hausgemachte Desserts. Unsere Konditorei bereitet täglich
+            zwei frische Kuchen zu – unser Service sagt Ihnen gerne, welche es heute sind.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BEWERTUNGEN BEI GOOGLE ===== -->
+<section class="s-beige" id="bewertungen">
+  <div class="wrap">
+    <div class="section-head center rv">
+      <span class="kicker">Bewertungen bei Google</span>
+      <h2 class="split">Das sagen unsere Gäste.</h2>
+    </div>
+
+    <div class="rating rv">
+      <div class="stat">
+        <div class="num" data-count="4.9" data-dec="1">0,0</div>
+        <div class="lab">Durchschnitt</div>
+        <div class="stars" aria-label="4,9 von 5 Sternen">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg>
+        </div>
+      </div>
+      <div class="stat">
+        <div class="num" data-count="30" data-dec="0">0</div>
+        <div class="lab">Rezensionen</div>
+        <div class="g-note" style="justify-content:center;margin-top:12px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg>
+          bei Google
+        </div>
+      </div>
+    </div>
+
+    <!-- REZENSIONEN: laufen automatisch als Endlosschleife, pausieren bei Hover.
+         Die Karten unten nur EINMAL pflegen – für die nahtlose Schleife werden sie
+         per JS dupliziert. Weitere Rezension = einfach eine weitere
+         <div class="rev"> … </div> ergänzen.
+
+         Alle 6 Zitate sind echte 5-Sterne-Google-Rezensionen von NIDDAHAUS (Stand:
+         20.09.2026, wortgleich bis auf Kürzungen an Satzgrenzen). Aus Datenschutz-
+         gründen bewusst NUR Vorname + Anfangsbuchstabe des Nachnamens – keine
+         Profilbilder, keine vollständigen Nachnamen, kein Link zum Google-Profil.
+         Details siehe datenschutz.html, Abschnitt „Kundenstimmen". -->
+    <div class="marquee rv d1">
+      <div class="track" id="track">
+        <div class="rev">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg></div>
+          <p>„Sehr schöner Lokal, sehr zufrieden! Super Essen super Service! Immer wieder gerne!“</p>
+          <div class="who">Gianlu T.</div>
+        </div>
+        <div class="rev">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg></div>
+          <p>„Ich war jetzt schon ein paar Mal hier essen und kann wirklich nur sagen – top Laden.“</p>
+          <div class="who">Vladimir J.</div>
+        </div>
+        <div class="rev">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg></div>
+          <p>„Sehr lecker und tolle Atmosphäre. Es gibt eine schöne Terrasse, auf der man die Sonne genießen kann.“</p>
+          <div class="who">Hana K.</div>
+        </div>
+        <div class="rev">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg></div>
+          <p>„Es ist sehr schön eingerichtet und sehr gemütlich. Die Bedienung ist sehr freundlich und sehr hilfsbereit. Essen ist sehr gut.“</p>
+          <div class="who">Andreas W.</div>
+        </div>
+        <div class="rev">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg></div>
+          <p>„Das Essen hat uns sehr gut geschmeckt. Große Portion. Ausreichende Parkplätze vorhanden.“</p>
+          <div class="who">Th B.</div>
+        </div>
+        <div class="rev">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.9 6.7 19.6l1-5.8L3.5 9.2l5.9-.9L12 3Z"/></svg></div>
+          <p>„Sehr guter Service und Essen war richtig lecker. Kann ich jedem empfehlen.“</p>
+          <div class="who">Lea D.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HINWEIS-SEKTOR MIT SPRUNGKNOPF ZUR SPEISEKARTE ===== -->
+<section class="s-navy menu-teaser">
+  <div class="wrap rv">
+    <h2>Unsere ganze Karte auf einen Blick.</h2>
+    <p>Vorspeisen, argentinische Steaks, NIDDAHAUS Klassiker, Salate, Gerichte für unsere kleinen
+      Gäste und Desserts – die vollständige Speisekarte finden Sie direkt hier auf der Seite.</p>
+    <a class="btn btn-beige" href="#speisekarte">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12v18H6z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>
+      Zur Speisekarte
+    </a>
+  </div>
+</section>
+
+<!-- ===== SPEISEKARTE ===== -->
+<section class="s-beige" id="speisekarte">
+  <div class="wrap">
+
+    <div class="menu-top rv">
+      <div class="mark"><b>NIDDAHAUS</b><span class="rule"></span><i>Restaurant · Café · Terrasse</i></div>
+      <h2>Unsere Speisekarte</h2>
+      <div class="back"><a class="btn btn-onavy btn-sm" href="#top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        Zurück nach oben
+      </a></div>
+    </div>
+
+    <div class="menu-grid" id="menuGrid" data-loading="Speisekarte wird geladen …"></div>
+
+    <div class="menu-foot" id="menuFoot"></div>
+
+    <!-- Speisekarte + Fußnotizen kommen aus content/speisekarte.json, damit sie
+         über /admin (Decap CMS) ohne Coding-Kenntnisse bearbeitet werden können.
+         Bewusst ohne .rv-Klasse gerendert: die Reveal-Observer weiter unten im
+         Script laufen synchron beim Seitenaufruf, lange bevor dieser fetch()
+         fertig ist – neu eingefügte .rv-Elemente würden sonst nie beobachtet
+         und blieben dauerhaft unsichtbar (opacity:0). -->
+    <script>
+    (function(){
+      var grid = document.getElementById('menuGrid');
+      var foot = document.getElementById('menuFoot');
+      if (!grid) return;
+
+      function esc(s){
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+          return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+        });
+      }
+
+      function renderItem(it){
+        var nummer = it.nummer ? '<em>' + esc(it.nummer) + '</em>' : '';
+        var desc = it.description ? '<div class="mi-desc">' + esc(it.description) + '</div>' : '';
+        return '<div class="mi"><div><div class="mi-name">' + nummer + esc(it.name) + '</div>' + desc +
+          '</div><div class="mi-price">' + esc(it.price) + '</div></div>';
+      }
+
+      function renderSection(sec){
+        if (sec.type === 'empfehlung'){
+          return '<div class="box" style="grid-column:1 / -1;">' +
+            (sec.title ? '<h3>' + esc(sec.title) + '</h3>' : '') +
+            '<div class="d">' + esc(sec.highlight_name) + '</div>' +
+            (sec.highlight_desc ? '<div class="dd">' + esc(sec.highlight_desc) + '</div>' : '') +
+            '<div class="pr">' + esc(sec.highlight_price) + '</div></div>';
+        }
+        if (sec.type === 'hinweistext'){
+          return '<div class="box" style="grid-column:1 / -1;">' +
+            (sec.title ? '<h3>' + esc(sec.title) + '</h3>' : '') +
+            '<p>' + esc(sec.text) + '</p></div>';
+        }
+        var cls = 'cat' + (sec.wide ? ' wide' : '') + (sec.accent ? ' steaks' : '');
+        var intro = sec.text ? '<p class="intro">' + esc(sec.text) + '</p>' : '';
+        var hint = sec.hint_text ? (
+          '<div class="hint">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>' +
+            '<div>' + (sec.hint_title ? '<b>' + esc(sec.hint_title) + '</b>' : '') + '<p>' + esc(sec.hint_text) + '</p></div>' +
+          '</div>'
+        ) : '';
+        var items = (sec.items || []).map(renderItem).join('');
+        return '<div class="' + cls + '"><h3>' + esc(sec.title) + '</h3>' + intro + hint +
+          '<div class="items">' + items + '</div></div>';
+      }
+
+      fetch('content/speisekarte.json', { cache: 'no-store' })
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          grid.innerHTML = (data.sections || []).map(renderSection).join('');
+          if (foot){
+            foot.innerHTML = (data.footnotes || []).map(function(n){
+              return '<div class="note">' + (n.title ? '<b>' + esc(n.title) + '</b>' : '') + esc(n.text) + '</div>';
+            }).join('');
+          }
+        })
+        .catch(function(err){
+          grid.innerHTML = '<p style="grid-column:1/-1;color:var(--ink-2)">Die Speisekarte konnte gerade nicht geladen werden.</p>';
+          console.error('Speisekarte laden fehlgeschlagen:', err);
+        });
+    })();
+    </script>
+
+    <div class="menu-end rv">
+      <p>Wir wünschen Ihnen einen genussvollen Aufenthalt im NIDDAHAUS.</p>
+      <a class="btn btn-navy" href="#top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+        Zurück nach oben
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ===== ÖFFNUNGSZEITEN & KONTAKT ===== -->
+<section class="s-beige" id="kontakt">
+  <div class="wrap">
+    <div class="section-head rv">
+      <span class="kicker">Besuch</span>
+      <h2 class="split">Öffnungszeiten &amp; Kontakt</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info rv">
+        <p><strong>NIDDAHAUS</strong><br>
+          <a class="u" href="https://www.google.com/maps/search/?api=1&amp;query=NIDDAHAUS%20Huizener%20Str.%209%2061118%20Bad%20Vilbel" target="_blank" rel="noopener">Huizener Str. 9<br>61118 Bad Vilbel</a>
+        </p>
+        <p>Telefon: <a class="u" href="tel:+49610144342">06101 44342</a><br>
+          E-Mail: <a class="u" href="mailto:[E-Mail]">[E-Mail]</a>
+        </p>
+        <p style="color:var(--ink-2);font-size:16.5px;">Reservierungen nehmen wir am liebsten
+          telefonisch entgegen – so finden wir direkt den passenden Tisch für Sie, drinnen oder
+          auf der Terrasse.</p>
+        <a class="btn btn-navy" href="tel:+49610144342">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+          Jetzt anrufen
+        </a>
+        <a class="btn btn-onavy" href="https://www.google.com/maps/search/?api=1&amp;query=NIDDAHAUS%20Huizener%20Str.%209%2061118%20Bad%20Vilbel" target="_blank" rel="noopener">Route berechnen</a>
+
+        <div class="map-embed" id="mapEmbed">
+          <h3>Standort auf Google Maps</h3>
+          <p>Beim Laden der Karte baut Ihr Browser eine Verbindung zu Google-Servern auf und
+            überträgt dabei u. a. Ihre IP-Adresse an Google. Die Karte wird deshalb erst nach
+            Ihrem Klick geladen. Mehr dazu in unserer
+            <a class="u" href="datenschutz.html#einbettungen">Datenschutzerklärung</a>.</p>
+          <button type="button" class="btn btn-navy" id="mapEmbedBtn">Karte laden</button>
+        </div>
+      </div>
+
+      <div class="hours rv d1">
+        <div class="hours-top">
+          <h3>Öffnungszeiten</h3>
+          <span class="live" data-live hidden><i></i><span data-live-text></span></span>
+        </div>
+        <table class="h">
+          <tbody>
+            <tr data-day="1" data-slots="11:30-14:30,17:00-22:00"><td>Montag</td><td>11:30–14:30 · 17:00–22:00</td></tr>
+            <tr data-day="2" data-slots="11:30-14:30,17:00-22:00"><td>Dienstag</td><td>11:30–14:30 · 17:00–22:00</td></tr>
+            <tr data-day="3" data-slots="11:30-14:30,17:00-22:00"><td>Mittwoch</td><td>11:30–14:30 · 17:00–22:00</td></tr>
+            <tr data-day="4" class="shut"><td>Donnerstag</td><td>Geschlossen</td></tr>
+            <tr data-day="5" data-slots="11:30-14:30,17:00-22:00"><td>Freitag</td><td>11:30–14:30 · 17:00–22:00</td></tr>
+            <tr data-day="6" data-slots="11:30-14:30,17:00-22:00"><td>Samstag</td><td>11:30–14:30 · 17:00–22:00</td></tr>
+            <tr data-day="0" data-slots="11:30-14:30,17:00-21:00"><td>Sonntag</td><td>11:30–14:30 · 17:00–21:00</td></tr>
+          </tbody>
+        </table>
+        <p class="hours-note">Donnerstag ist Ruhetag. Zwischen 14:30 und 17:00 Uhr haben wir
+          Küchenpause – sonntags endet der Abend um 21:00 Uhr.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA-BAND ===== -->
+<section class="cta">
+  <div class="cta-bg" aria-hidden="true"><img src="images/cta-band.jpg" alt=""></div>
+  <div class="wrap rv">
+    <h2>Einen Tisch im NIDDAHAUS?</h2>
+    <p>Ein Anruf genügt – ob Mittagessen, Abendessen, Familienfeier oder ein Platz auf der Terrasse.</p>
+    <div class="cta-row">
+      <a class="btn btn-beige" href="tel:+49610144342">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
+        06101 44342
+      </a>
+      <a class="btn btn-obeige" href="#speisekarte">Zur Speisekarte</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="f-top">
+      <div>
+        <div class="mark"><b>NIDDAHAUS</b><span class="rule"></span><i>Restaurant · Café · Terrasse</i></div>
+        <p>Moderne deutsche Küche in Bad Vilbel am Niddaufer – Restaurant, Café und sonnige Terrasse
+          direkt am Tennisclub.</p>
+      </div>
+      <div class="f-col">
+        <h4>Seite</h4>
+        <a href="#willkommen">Willkommen</a>
+        <a href="#kueche">Küche</a>
+        <a href="#bewertungen">Bewertungen</a>
+        <a href="#speisekarte">Speisekarte</a>
+        <a href="#kontakt">Öffnungszeiten &amp; Kontakt</a>
+      </div>
+      <div class="f-col">
+        <h4>Kontakt</h4>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=NIDDAHAUS%20Huizener%20Str.%209%2061118%20Bad%20Vilbel" target="_blank" rel="noopener">Huizener Str. 9, 61118 Bad Vilbel</a>
+        <a href="tel:+49610144342">06101 44342</a>
+        <a href="mailto:[E-Mail]">[E-Mail]</a>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 NIDDAHAUS · Bad Vilbel</span>
+      <span class="f-legal">
+        <a href="impressum.html">Impressum</a>
+        <a href="datenschutz.html">Datenschutz</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Karte: Zwei-Klick-Lösung, kein Cookie/Storage ----------
+     Das <iframe> existiert erst im DOM, nachdem die Nutzerin/der Nutzer
+     aktiv auf „Karte laden" geklickt hat. Vorher wird keine Verbindung
+     zu Google aufgebaut. Der Klick wird nirgends gespeichert (kein
+     Cookie, kein Local Storage) – nach einem Neuladen der Seite muss
+     wieder aktiv zugestimmt werden. */
+  var mapBtn = document.getElementById('mapEmbedBtn');
+  if (mapBtn){
+    mapBtn.addEventListener('click', function(){
+      var box = document.getElementById('mapEmbed');
+      box.innerHTML =
+        '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2555.0194428183613!2d8.727585179345702!3d50.179472799999985!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd0fc940568d31%3A0xad4bb59741526fe!2sNIDDAHAUS!5e0!3m2!1sde!2sde!4v1789933707287!5m2!1sde!2sde" ' +
+        'title="NIDDAHAUS auf Google Maps" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+    });
+  }
+
+  /* ---------- Überschriften wortweise aufteilen ---------- */
+  document.querySelectorAll('.split').forEach(function(el){
+    var frag = document.createDocumentFragment();
+    Array.prototype.slice.call(el.childNodes).forEach(function(node){
+      if (node.nodeType === 3){
+        node.textContent.split(/(\s+)/).forEach(function(part){
+          if (!part) return;
+          if (/^\s+$/.test(part)){ frag.appendChild(document.createTextNode(part)); return; }
+          var s = document.createElement('span');
+          s.className = 'w'; s.textContent = part;
+          frag.appendChild(s);
+        });
+      } else if (node.nodeType === 1){
+        node.classList.add('w'); frag.appendChild(node);
+      } else { frag.appendChild(node); }
+    });
+    el.textContent = '';
+    el.appendChild(frag);
+    el.querySelectorAll('.w').forEach(function(w, i){ w.style.transitionDelay = (i * 0.05) + 's'; });
+  });
+
+  /* ---------- Scroll: Progress + Hero-Scrub ---------- */
+  var progress  = document.getElementById('progress');
+  var heroStage = document.getElementById('heroStage');
+  var ticking   = false;
+
+  function clamp(v){ return v < 0 ? 0 : v > 1 ? 1 : v; }
+
+  function frame(){
+    ticking = false;
+    var y  = window.pageYOffset || document.documentElement.scrollTop;
+    var vh = window.innerHeight;
+
+    var docH = document.documentElement.scrollHeight - vh;
+    progress.style.setProperty('--sp', docH > 0 ? clamp(y / docH) : 0);
+
+    if (reduce || !heroStage) return;
+
+    /* Das Hero-Foto soll SCHNELL verblassen: der Scrub ist auf die ersten
+       60 % der Hero-Strecke gestaucht, danach ist das Bild bereits weg. */
+    var span = heroStage.offsetHeight - vh;
+    var raw  = span > 0 ? clamp((y - heroStage.offsetTop) / span) : 0;
+    heroStage.style.setProperty('--p', clamp(raw / 0.6).toFixed(4));
+  }
+  function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  window.addEventListener('resize', onScroll, { passive:true });
+  frame();
+
+  /* ---------- Reveals ---------- */
+  var targets = document.querySelectorAll('.rv, .split');
+  if (reduce || !('IntersectionObserver' in window)){
+    targets.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        obs.unobserve(e.target);
+      });
+    }, { threshold:0.12, rootMargin:'0px 0px -6% 0px' });
+    targets.forEach(function(el){ obs.observe(el); });
+  }
+
+  /* ---------- Bewertungen: Zahlen zählen hoch ---------- */
+  function fmt(v, dec){
+    return dec > 0 ? v.toFixed(dec).replace('.', ',') : String(Math.round(v));
+  }
+  var counters = document.querySelectorAll('[data-count]');
+  function runCount(el){
+    var to  = parseFloat(el.getAttribute('data-count'));
+    var dec = parseInt(el.getAttribute('data-dec'), 10) || 0;
+    if (reduce){ el.textContent = fmt(to, dec); return; }
+    var dur = 1400, t0 = null;
+    function step(t){
+      if (t0 === null) t0 = t;
+      var p = Math.min((t - t0) / dur, 1);
+      var e = 1 - Math.pow(1 - p, 3);            /* ease-out */
+      el.textContent = fmt(to * e, dec);
+      if (p < 1) requestAnimationFrame(step); else el.textContent = fmt(to, dec);
+    }
+    requestAnimationFrame(step);
+  }
+  if (!('IntersectionObserver' in window)){
+    counters.forEach(runCount);
+  } else {
+    var cObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        runCount(e.target); cObs.unobserve(e.target);
+      });
+    }, { threshold:0.5 });
+    counters.forEach(function(el){ cObs.observe(el); });
+  }
+
+  /* ---------- Rezensions-Laufband: Karten für die nahtlose Schleife verdoppeln ---------- */
+  var track = document.getElementById('track');
+  if (track && !reduce){
+    track.innerHTML = track.innerHTML + track.innerHTML;
+    track.classList.add('ready');
+  }
+
+  /* ---------- Öffnungszeiten: heute markieren + geöffnet/geschlossen ---------- */
+  /* Zwei Zeitfenster pro Tag (Mittag + Abend) – data-slots="11:30-14:30,17:00-22:00" */
+  function toMin(s){ var p = s.split(':'); return (+p[0]) * 60 + (+p[1]); }
+  function slotsOf(tr){
+    var raw = tr && tr.getAttribute('data-slots');
+    if (!raw) return [];
+    return raw.split(',').map(function(w){
+      var p = w.split('-'); return [toMin(p[0]), toMin(p[1])];
+    });
+  }
+  try {
+    var now  = new Date(), d = now.getDay();
+    var mins = now.getHours() * 60 + now.getMinutes();
+    var row  = document.querySelector('table.h tr[data-day="' + d + '"]');
+    if (row) row.classList.add('today');
+
+    var open = false, until = null;
+    slotsOf(row).forEach(function(s){
+      if (mins >= s[0] && mins < s[1]){ open = true; until = s[1]; }
+    });
+
+    var label = open ? 'Jetzt geöffnet' : 'Gerade geschlossen';
+    var extra = '';
+    if (open && until !== null){
+      extra = '· bis ' + String(Math.floor(until / 60)).padStart(2, '0') +
+              ':' + String(until % 60).padStart(2, '0') + ' Uhr';
+    }
+    document.querySelectorAll('[data-live]').forEach(function(el){
+      el.classList.toggle('shut', !open);
+      var txt = el.querySelector('[data-live-text]');
+      if (txt){
+        txt.textContent = label;
+        if (extra){
+          var s = document.createElement('small');
+          s.textContent = ' ' + extra;
+          txt.appendChild(s);
+        }
+      }
+      el.hidden = false;
+    });
+  } catch(e){}
+
+  /* ---------- Navigation: Klappmenü + aktiver Sektor ---------- */
+  var toggle = document.getElementById('navToggle'), links = document.getElementById('navlinks');
+  if (toggle && links){
+    toggle.addEventListener('click', function(){
+      var isOpen = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
+  var navAnchors = Array.prototype.slice.call(document.querySelectorAll('.nav-links > a[href^="#"]'));
+  if ('IntersectionObserver' in window && navAnchors.length){
+    var sObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        navAnchors.forEach(function(a){
+          a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+        });
+      });
+    }, { rootMargin:'-45% 0px -50% 0px' });
+    navAnchors.forEach(function(a){
+      var el = document.querySelector(a.getAttribute('href'));
+      if (el) sObs.observe(el);
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+# Temporäre Test-/Screenshot-Kopien
+_test_tmp.html
+_*_tmp.html
+*.tmp
+
+# Betriebssystem
+Thumbs.db
+desktop.ini
+.DS_Store
