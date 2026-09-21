@@ -60,3 +60,45 @@ collections:
             fields:
               - { label: "Titel", name: "title", widget: "string" }
               - { label: "Text", name: "text", widget: "text" }
+
+  - name: "wochenkarte"
+    label: "Wochen-Speisekarte"
+    files:
+      - file: "content/wochenkarte.json"
+        label: "Wochen-Speisekarte"
+        name: "wochenkarte"
+        fields:
+          - label: "Abschnitte (normalerweise reicht 1 Kategorie „Diese Woche“)"
+            name: "sections"
+            widget: "list"
+            summary: "{{title}} ({{type}})"
+            fields:
+              - label: "Art"
+                name: "type"
+                widget: "select"
+                options:
+                  - { label: "Kategorie (mit Liste von Gerichten)", value: "kategorie" }
+                  - { label: "Empfehlung (eine einzelne, groß hervorgehobene Box)", value: "empfehlung" }
+                  - { label: "Reiner Hinweistext (Box ohne Gerichte-Liste)", value: "hinweistext" }
+              - { label: "Titel / Überschrift", name: "title", widget: "string", required: false }
+              - label: "Text"
+                name: "text"
+                widget: "text"
+                required: false
+                hint: "Bei „Kategorie“: kurzer Zusatztext unter der Überschrift. Bei „Hinweistext“: der komplette Text der Box."
+              - { label: "Volle Breite (2 Spalten) – nur bei Kategorie", name: "wide", widget: "boolean", default: true, required: false }
+              - { label: "Hinweisbox – Titel (optional) – nur bei Kategorie", name: "hint_title", widget: "string", required: false }
+              - { label: "Hinweisbox – Text (optional) – nur bei Kategorie", name: "hint_text", widget: "text", required: false }
+              - { label: "Name des Gerichts – nur bei Empfehlung", name: "highlight_name", widget: "string", required: false }
+              - { label: "Beschreibung – nur bei Empfehlung", name: "highlight_desc", widget: "string", required: false }
+              - { label: "Preis – nur bei Empfehlung", name: "highlight_price", widget: "string", required: false }
+              - label: "Gerichte – nur bei Kategorie"
+                name: "items"
+                widget: "list"
+                required: false
+                summary: "{{name}} – {{price}}"
+                fields:
+                  - { label: "Nummer (optional)", name: "nummer", widget: "string", required: false }
+                  - { label: "Name", name: "name", widget: "string" }
+                  - { label: "Beschreibung (optional)", name: "description", widget: "string", required: false }
+                  - { label: "Preis", name: "price", widget: "string" }

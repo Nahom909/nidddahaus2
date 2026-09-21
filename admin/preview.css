@@ -1,0 +1,94 @@
+/* Vorschau im CMS – Kopie der relevanten Original-Regeln aus index.html,
+   damit der Bearbeitungs-Vorschau (Augensymbol) exakt wie die echte Seite
+   aussieht, statt als reiner Text-Dump. Wird nur im /admin geladen, nie von
+   normalen Besuchern der Website. */
+
+@font-face{
+  font-family:'Inter'; font-style:normal; font-weight:400; font-display:swap;
+  src:url('../fonts/inter-400-latin.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Inter'; font-style:normal; font-weight:600; font-display:swap;
+  src:url('../fonts/inter-600-latin.woff2') format('woff2');
+}
+@font-face{
+  font-family:'Inter'; font-style:normal; font-weight:700; font-display:swap;
+  src:url('../fonts/inter-700-latin.woff2') format('woff2');
+}
+
+:root{
+  --navy:#0F2440; --navy-2:#16304F; --navy-3:#1D3A5E;
+  --beige:#F2E9D8; --beige-2:#E8DCC5; --beige-3:#D6C6A8;
+  --gold:#C29A45; --gold-dark:#8A6B22;
+  --ink:#12161C; --ink-2:#3E4756;
+  --white:#FFFFFF; --white-2:rgba(255,255,255,.80);
+}
+*{ box-sizing:border-box; }
+body{
+  margin:0; padding:24px; background:var(--beige); color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:17px; line-height:1.55;
+}
+h1,h2,h3{ margin:0; font-weight:600; }
+
+/* Kicker-Badge (für die Wochenkarten-Vorschau) */
+.preview-kicker{
+  display:inline-flex; align-items:center; gap:8px; font-size:12.5px; font-weight:700;
+  letter-spacing:.12em; text-transform:uppercase; padding:7px 16px; border-radius:980px;
+  margin-bottom:18px; background:var(--gold); color:var(--navy);
+}
+
+/* ===== Reguläre Speisekarte (beige Karten) ===== */
+.menu-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; align-items:start; }
+.cat{ background:var(--beige-2); border:1px solid var(--beige-3); border-radius:18px; padding:26px 28px 20px; }
+.cat.wide{ grid-column:1 / -1; }
+.cat.steaks{ border-color:var(--gold-dark); border-width:2px; }
+.cat h3{ font-size:16px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--gold-dark); margin-bottom:6px; }
+.cat .intro{ font-size:14.5px; color:var(--ink-2); margin-bottom:14px; }
+.cat .items{ display:grid; grid-template-columns:1fr; }
+.cat.wide .items{ grid-template-columns:1fr 1fr; column-gap:34px; }
+.mi{ display:flex; justify-content:space-between; gap:20px; align-items:baseline; padding:13px 0; border-bottom:1px solid var(--beige-3); }
+.cat .items > .mi:last-child{ border-bottom:none; }
+.mi-name{ font-size:16px; font-weight:600; color:var(--ink); }
+.mi-name em{ font-style:normal; font-weight:600; color:var(--navy); margin-right:5px; }
+.mi-desc{ margin-top:3px; font-size:14px; color:var(--ink-2); line-height:1.42; }
+.mi-price{ font-size:16px; font-weight:700; color:var(--navy); white-space:nowrap; }
+.box{ background:var(--navy); color:var(--white); border-radius:18px; padding:28px 30px; text-align:center; }
+.box h3{ font-size:15px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-bottom:12px; }
+.box .d{ font-size:18px; font-weight:600; }
+.box .dd{ margin-top:6px; font-size:15px; color:var(--white-2); }
+.box .pr{ margin-top:14px; font-size:20px; font-weight:700; }
+.box p{ font-size:15.5px; color:var(--white-2); margin:0; }
+.hint{ display:flex; gap:14px; align-items:flex-start; margin-bottom:14px; padding:16px 18px; border-radius:14px; border:1px dashed var(--navy); }
+.hint svg{ width:20px; height:20px; color:var(--navy); flex:0 0 auto; margin-top:2px; }
+.hint p{ font-size:14.5px; color:var(--ink-2); margin:0; }
+.hint b{ display:block; color:var(--ink); margin-bottom:3px; font-size:15px; }
+.menu-foot{ margin-top:34px; display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.note{ background:var(--beige-2); border:1px solid var(--beige-3); border-radius:18px; padding:24px 26px; font-size:15.5px; color:var(--ink-2); }
+.note b{ display:block; color:var(--ink); margin-bottom:6px; }
+
+/* ===== Wochen-Speisekarte (auffällige, dunkle Karten) ===== */
+.wk-wrap{ background:var(--navy); padding:28px; border-radius:20px; }
+.wk-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; align-items:start; }
+.wcat{ background:var(--navy-2); border:1.5px solid var(--gold-dark); border-radius:18px; padding:26px 28px 20px; }
+.wcat.wide{ grid-column:1 / -1; }
+.wcat h3{ font-size:16px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--gold); margin-bottom:6px; }
+.wcat .intro{ font-size:14.5px; color:var(--white-2); margin-bottom:14px; }
+.wcat .items{ display:grid; grid-template-columns:1fr; }
+.wcat.wide .items{ grid-template-columns:1fr 1fr; column-gap:34px; }
+.wmi{ display:flex; justify-content:space-between; gap:20px; align-items:baseline; padding:13px 0; border-bottom:1px solid var(--navy-3); }
+.wcat .items > .wmi:last-child{ border-bottom:none; }
+.wmi-name{ font-size:16px; font-weight:600; color:var(--white); }
+.wmi-name em{ font-style:normal; font-weight:600; color:var(--gold); margin-right:5px; }
+.wmi-desc{ margin-top:3px; font-size:14px; color:var(--white-2); line-height:1.42; }
+.wmi-price{ font-size:16px; font-weight:700; color:var(--gold); white-space:nowrap; }
+.wbox{ background:var(--gold); color:var(--navy); border-radius:18px; padding:28px 30px; text-align:center; }
+.wbox h3{ font-size:15px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; margin-bottom:12px; }
+.wbox .d{ font-size:18px; font-weight:600; }
+.wbox .dd{ margin-top:6px; font-size:15px; }
+.wbox .pr{ margin-top:14px; font-size:20px; font-weight:700; }
+.wbox p{ font-size:15.5px; margin:0; }
+.whint{ display:flex; gap:14px; align-items:flex-start; margin-bottom:14px; padding:16px 18px; border-radius:14px; border:1px dashed var(--gold); }
+.whint svg{ width:20px; height:20px; color:var(--gold); flex:0 0 auto; margin-top:2px; }
+.whint p{ font-size:14.5px; color:var(--white-2); margin:0; }
+.whint b{ display:block; color:var(--white); margin-bottom:3px; font-size:15px; }

@@ -1,0 +1,20 @@
+{
+  "sections": [
+    {
+      "type": "kategorie",
+      "title": "Diese Woche",
+      "text": "",
+      "wide": true,
+      "accent": false,
+      "hint_title": "Platzhalter – bitte wöchentlich aktualisieren",
+      "hint_text": "Hier stehen Beispiel-Gerichte. Im CMS unter „Wochen-Speisekarte“ einfach durch die echten Gerichte der Woche ersetzen.",
+      "items": [
+        { "nummer": "", "name": "[Wochengericht 1]", "description": "[Kurze Beschreibung des Gerichts]", "price": "[0,00 €]" },
+        { "nummer": "", "name": "[Wochengericht 2]", "description": "[Kurze Beschreibung des Gerichts]", "price": "[0,00 €]" },
+        { "nummer": "", "name": "[Wochengericht 3]", "description": "[Kurze Beschreibung des Gerichts]", "price": "[0,00 €]" },
+        { "nummer": "", "name": "[Wochengericht 4]", "description": "[Kurze Beschreibung des Gerichts]", "price": "[0,00 €]" }
+      ]
+    }
+  ],
+  "footnotes": []
+}
