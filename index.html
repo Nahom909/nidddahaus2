@@ -4,12 +4,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- Einfacher Passwortschutz für die Vorschau-Seite (rein client-seitig) -->
+<!-- Einfacher Passwortschutz für die Vorschau-Seite (rein client-seitig).
+     Ausnahme: Netlify-Identity-Links (Einladung, Passwort vergessen, E-Mail
+     bestätigen) zeigen auf diese Startseite mit einem Token im Link-Anhang
+     (#invite_token=…). In dem Fall wird der Passwort-Prompt übersprungen,
+     damit der Link direkt funktioniert statt im Passwortschutz zu landen. -->
 <script>
-  var password = prompt("Bitte gib das Passwort ein, um die Vorschau-Seite zu sehen:");
-  if (password !== "1292") {
-    alert("Falsches Passwort!");
-    window.location.href = "about:blank";
+  var isIdentityLink = /(invite_token|recovery_token|confirmation_token|access_token)=/.test(window.location.hash);
+  if (!isIdentityLink) {
+    var password = prompt("Bitte gib das Passwort ein, um die Vorschau-Seite zu sehen:");
+    if (password !== "1292") {
+      alert("Falsches Passwort!");
+      window.location.href = "about:blank";
+    }
+  }
+</script>
+
+<!-- Netlify-Identity-Widget: faengt genau diese Einladungs-/Bestätigungs-/
+     Passwort-vergessen-Links ab (Netlify schickt sie immer auf die Start-
+     seite, nicht auf /admin/) und öffnet automatisch den Dialog zum
+     Passwort-Festlegen. Nach erfolgreichem Login geht es weiter zu /admin/. -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", function (user) {
+      if (!user) {
+        window.netlifyIdentity.on("login", function () {
+          document.location.href = "/admin/";
+        });
+      }
+    });
   }
 </script>
 
