@@ -468,6 +468,17 @@
   .cta p{ margin:20px auto 32px; max-width:50ch; font-size:18px; color:var(--white-2); }
   .cta .cta-row{ justify-content:center; }
 
+  /* ===== SCHWESTERRESTAURANT (kleiner Verweis auf das andere Haus) ===== */
+  .sister{ padding:56px 0; }
+  .sister-box{
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+    background:var(--beige-2); border:1px solid var(--beige-3); border-radius:20px;
+    padding:30px 34px;
+  }
+  .sister-box h3{ font-size:20px; color:var(--gold-dark); letter-spacing:-.02em; margin:4px 0 6px; }
+  .sister-box p{ font-size:15.5px; color:var(--ink-2); max-width:52ch; }
+  .sister-box .btn{ flex:0 0 auto; }
+
   /* ===== FOOTER ===== */
   footer{ background:var(--navy); border-top:1px solid var(--navy-3); padding:66px 0 30px; font-size:15px; }
   .f-top{ display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:44px; padding-bottom:38px; border-bottom:1px solid var(--navy-3); }
@@ -577,6 +588,8 @@
     .wk-grid{ grid-template-columns:1fr; }
     .menu-foot{ grid-template-columns:1fr; }
     .contact-grid{ grid-template-columns:1fr; gap:40px; }
+    .sister-box{ flex-direction:column; text-align:center; padding:28px 24px; }
+    .sister-box p{ max-width:none; }
     .f-top{ grid-template-columns:1fr; gap:32px; }
     .hero-inner{ padding-bottom:44px; }
     .rating{ gap:26px 40px; }
@@ -1050,6 +1063,23 @@
         06101 44342
       </a>
       <a class="btn btn-obeige" href="#speisekarte">Zur Speisekarte</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SCHWESTERRESTAURANT ===== -->
+<section class="s-beige sister">
+  <div class="wrap">
+    <div class="sister-box rv">
+      <div>
+        <span class="kicker">Unser zweites Haus</span>
+        <h3>Restaurant Frankfurter Hof</h3>
+        <p>Deutsche Küche in Bergen-Enkheim – vom gleichen Inhaber wie das NIDDAHAUS.</p>
+      </div>
+      <a class="btn btn-navy" href="https://www.restaurant-frankfurter-hof.de" target="_blank" rel="noopener">
+        Zur Website
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+      </a>
     </div>
   </div>
 </section>
