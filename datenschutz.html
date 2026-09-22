@@ -60,6 +60,7 @@
       <li><a href="#analyse">Analyse, Tracking &amp; Werbe-Pixel</a></li>
       <li><a href="#einbettungen">Externe Einbettungen (Karten, Videos)</a></li>
       <li><a href="#kundenstimmen">Kundenstimmen (Google-Bewertungen)</a></li>
+      <li><a href="#adminlogin">Login-Bereich für den Inhaber (/admin)</a></li>
       <li><a href="#links">Externe Links</a></li>
       <li><a href="#kontaktaufnahme">Kontaktaufnahme (Telefon &amp; E-Mail)</a></li>
       <li><a href="#formular">Kontaktformular &amp; Newsletter</a></li>
@@ -146,9 +147,12 @@
 
   <h2 id="consent">7. Cookie-/Consent-Lösung</h2>
   <p>
-    Diese Website setzt keine technisch nicht notwendigen Cookies und kein Tracking ein. Die
-    einzige Einbindung eines Drittanbieters – die Google-Maps-Karte im Kontaktbereich (siehe
-    Ziffer 9) – ist so umgesetzt, dass sie <strong>nicht automatisch beim Seitenaufruf lädt</strong>,
+    Diese Website setzt keine technisch nicht notwendigen Cookies und kein Tracking ein. Für die
+    öffentliche Seite gibt es nur eine einzige Einbindung eines Drittanbieters – die
+    Google-Maps-Karte im Kontaktbereich (siehe Ziffer 9); der Login-Bereich für den Inhaber unter
+    <code>/admin</code> (siehe Ziffer 11) ist kein Teil der öffentlichen Seite und lädt für normale
+    Besucherinnen und Besucher nichts nach. Die Google-Maps-Karte ist so umgesetzt, dass sie
+    <strong>nicht automatisch beim Seitenaufruf lädt</strong>,
     sondern erst nach einem aktiven Klick der Besucherin/des Besuchers auf „Karte laden"
     (sogenannte <strong>Zwei-Klick-Lösung</strong>). Dieser Klick ist Ihre Einwilligung nach
     Art. 6 Abs. 1 lit. a DSGVO bzw. § 25 Abs. 1 TDDDG für diese eine Einbindung. Da vor diesem
@@ -224,7 +228,29 @@
     dass dafür ein Grund genannt werden muss (Art. 21 DSGVO).
   </p>
 
-  <h2 id="links">11. Externe Links (Google Maps – Wegbeschreibung)</h2>
+  <h2 id="adminlogin">11. Login-Bereich für den Inhaber (/admin)</h2>
+  <p>
+    Unter <code>/admin</code> befindet sich eine Bearbeitungsoberfläche, über die ausschließlich
+    der Inhaber Texte und Preise der Website pflegen kann (Content-Management-System). Dieser
+    Bereich ist nicht Teil des öffentlichen Auftritts und für gewöhnliche Besucher der Website
+    ohne Belang.
+  </p>
+  <p>
+    Für die normale Startseite gilt: Das für den Login benötigte Skript
+    (netlify-identity-widget.js von Netlify) wird <strong>nicht automatisch geladen</strong>.
+    Es wird ausschließlich dann nachgeladen, wenn die Seite über einen echten
+    Einladungs-, Bestätigungs- oder Passwort-vergessen-Link aus dem Inhaber-Login aufgerufen wird
+    (erkennbar an einem technischen Anhang in der Adresszeile). Normale Besucherinnen und Besucher
+    lösen dies nicht aus und bauen dadurch keine Verbindung zu Netlifys Identity-Dienst auf.
+  </p>
+  <p>
+    Meldet sich der Inhaber über diesen Weg an, verarbeitet Netlify (siehe Ziffer 3) die dafür
+    notwendigen Daten (E-Mail-Adresse, Passwort-Hash) als eigenständiger Dienst
+    „Netlify Identity". Rechtsgrundlage ist unser berechtigtes Interesse an einer sicheren,
+    unbefugten Dritten nicht zugänglichen Pflege der Website-Inhalte (Art. 6 Abs. 1 lit. f DSGVO).
+  </p>
+
+  <h2 id="links">12. Externe Links (Google Maps – Wegbeschreibung)</h2>
   <p>
     Diese Website enthält Links zu Google Maps (Anfahrt/Wegbeschreibung zu unserem Restaurant).
     Diese Links öffnen sich in einem neuen Tab. Erst wenn Sie aktiv auf einen solchen Link
@@ -234,7 +260,7 @@
     von Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.
   </p>
 
-  <h2 id="kontaktaufnahme">12. Kontaktaufnahme per Telefon &amp; E-Mail</h2>
+  <h2 id="kontaktaufnahme">13. Kontaktaufnahme per Telefon &amp; E-Mail</h2>
   <p>
     Wenn Sie über die auf dieser Website angegebene Telefonnummer oder E-Mail-Adresse Kontakt zu
     uns aufnehmen, verarbeiten wir die von Ihnen mitgeteilten Daten (z. B. Name, Kontaktdaten,
@@ -246,20 +272,20 @@
     entgegenstehen.
   </p>
 
-  <h2 id="formular">13. Kontaktformular &amp; Newsletter</h2>
+  <h2 id="formular">14. Kontaktformular &amp; Newsletter</h2>
   <p>
     Diese Website verfügt über <strong>kein Kontaktformular</strong> und
     <strong>keine Newsletter-Anmeldung</strong>. Es werden daher in diesem Zusammenhang keine
     personenbezogenen Daten über die Website erhoben oder gespeichert.
   </p>
 
-  <h2 id="widerruf">14. Widerrufs- und Widerspruchsrecht</h2>
+  <h2 id="widerruf">15. Widerrufs- und Widerspruchsrecht</h2>
   <p>
     Über diese Website werden keine Verträge im Fernabsatz (z. B. Online-Bestellung, Online-Kauf
     von Gutscheinen) geschlossen; ein Widerrufsrecht nach § 355 BGB ist daher nicht einschlägig.
     Unabhängig davon steht Ihnen jederzeit das Recht zu, einer auf Art. 6 Abs. 1 lit. f DSGVO
     gestützten Verarbeitung Ihrer personenbezogenen Daten aus Gründen, die sich aus Ihrer
-    besonderen Situation ergeben, gemäß Art. 21 DSGVO zu widersprechen (siehe Ziffer 15).
+    besonderen Situation ergeben, gemäß Art. 21 DSGVO zu widersprechen (siehe Ziffer 16).
   </p>
   <div class="todo">
     <b>Hinweis für den Betreiber:</b> Sollte künftig eine Online-Reservierung, ein
@@ -267,7 +293,7 @@
     muss dieser Abschnitt um eine vollständige Widerrufsbelehrung ergänzt werden.
   </div>
 
-  <h2 id="rechte">15. Ihre Rechte</h2>
+  <h2 id="rechte">16. Ihre Rechte</h2>
   <p>Sie haben nach der DSGVO jederzeit das Recht auf:</p>
   <ul>
     <li>Auskunft über die zu Ihrer Person gespeicherten Daten (Art. 15 DSGVO)</li>

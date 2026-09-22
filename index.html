@@ -8,7 +8,13 @@
      Ausnahme: Netlify-Identity-Links (Einladung, Passwort vergessen, E-Mail
      bestätigen) zeigen auf diese Startseite mit einem Token im Link-Anhang
      (#invite_token=…). In dem Fall wird der Passwort-Prompt übersprungen,
-     damit der Link direkt funktioniert statt im Passwortschutz zu landen. -->
+     damit der Link direkt funktioniert statt im Passwortschutz zu landen.
+
+     Datenschutz: Das Netlify-Identity-Skript wird bewusst NUR in diesem
+     einen Fall nachgeladen (dynamisch, per JS) – normale Besucher der Seite
+     laden es nie mit und bauen dadurch auch keine Verbindung zu
+     identity.netlify.com auf. Nur wer einen echten Einladungs-/Bestätigungs-
+     /Passwort-vergessen-Link vom Inhaber-Login öffnet, löst das aus. -->
 <script>
   var isIdentityLink = /(invite_token|recovery_token|confirmation_token|access_token)=/.test(window.location.hash);
   if (!isIdentityLink) {
@@ -17,23 +23,25 @@
       alert("Falsches Passwort!");
       window.location.href = "about:blank";
     }
-  }
-</script>
-
-<!-- Netlify-Identity-Widget: faengt genau diese Einladungs-/Bestätigungs-/
-     Passwort-vergessen-Links ab (Netlify schickt sie immer auf die Start-
-     seite, nicht auf /admin/) und öffnet automatisch den Dialog zum
-     Passwort-Festlegen. Nach erfolgreichem Login geht es weiter zu /admin/. -->
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", function (user) {
-      if (!user) {
-        window.netlifyIdentity.on("login", function () {
-          document.location.href = "/admin/";
+  } else {
+    // Faengt den Einladungs-/Bestätigungs-/Passwort-vergessen-Link ab
+    // (Netlify schickt diese Links immer auf die Startseite, nicht auf
+    // /admin/) und öffnet automatisch den Dialog zum Passwort-Festlegen.
+    // Nach erfolgreichem Login geht es weiter zu /admin/.
+    var s = document.createElement('script');
+    s.src = 'https://identity.netlify.com/v1/netlify-identity-widget.js';
+    s.onload = function () {
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on('init', function (user) {
+          if (!user) {
+            window.netlifyIdentity.on('login', function () {
+              document.location.href = '/admin/';
+            });
+          }
         });
       }
-    });
+    };
+    document.head.appendChild(s);
   }
 </script>
 
