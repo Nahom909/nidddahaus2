@@ -1,7 +1,7 @@
 # NIDDAHAUS – Vorschau-Website
 
 Eine einzelne HTML-Datei, kein Build-Step. Einfach `index.html` im Browser öffnen.
-**Passwort:** `1292` (Prompt beim Laden).
+**Kein Passwortschutz mehr** – die Seite ist frei einsehbar.
 
 - Adresse: Huizener Str. 9, 61118 Bad Vilbel
 - Telefon: 06101 44342
