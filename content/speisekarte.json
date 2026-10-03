@@ -348,41 +348,6 @@
       ]
     },
     {
-      "type": "kategorie",
-      "title": "Getränke",
-      "text": "",
-      "wide": false,
-      "accent": false,
-      "hint_title": "Platzhalter – Getränkekarte fehlt noch",
-      "hint_text": "Auf der ausgehängten Speisekarte stehen nur die Aperitifs. Bitte die Getränkekarte zusenden, dann tragen wir alles ein. Nichts hiervon ist erfunden.",
-      "items": [
-        {
-          "nummer": "",
-          "name": "[Weine]",
-          "description": "[Weiß · Rot · Rosé, offen und in der Flasche]",
-          "price": "[0,00 €]"
-        },
-        {
-          "nummer": "",
-          "name": "[Bier]",
-          "description": "[vom Fass und in der Flasche]",
-          "price": "[0,00 €]"
-        },
-        {
-          "nummer": "",
-          "name": "[Kaffee & Tee]",
-          "description": "[Kaffee, Cappuccino, Latte macchiato, Tee]",
-          "price": "[0,00 €]"
-        },
-        {
-          "nummer": "",
-          "name": "[Alkoholfreie Getränke]",
-          "description": "[Wasser, Softdrinks, Säfte, Schorlen]",
-          "price": "[0,00 €]"
-        }
-      ]
-    },
-    {
       "type": "hinweistext",
       "title": "",
       "text": "Unsere Konditorei bereitet täglich zwei frische Kuchen für Sie zu – gerne informiert Sie unser Service über die aktuelle Auswahl.",

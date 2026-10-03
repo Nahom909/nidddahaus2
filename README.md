@@ -18,7 +18,6 @@ in der Navigation (immer sichtbar), im Hero und in einem eigenen Hinweis-Sektor 
 | Stelle | Was fehlt |
 |---|---|
 | **Rezensionen** (`#bewertungen`) | 6 Karten mit `„[Rezension 1 hier einsetzen.]“` / `[Name]`. Bitte **echte** Google-Rezensionen eintragen – es ist bewusst nichts erfunden. Weitere Karte = einfach ein weiteres `<div class="rev"> … </div>` ergänzen, das Laufband verdoppelt sich automatisch. |
-| **Getränke** (in der Speisekarte) | Komplett Platzhalter. Auf der ausgehängten Karte stehen **nur die Aperitifs** – eine eigene Getränkekarte war nicht auffindbar. Struktur steht (Weine · Bier · Kaffee & Tee · Alkoholfreie Getränke). |
 | **`[E-Mail]`** | 3× im Dokument (Kontakt, Footer). |
 | **Impressum / Datenschutz** | Bewusst noch nicht angelegt. Footer-Links sind Platzhalter und zeigen auf `#kontakt`. Vor einem echten Livegang zwingend nachziehen. |
 
@@ -35,7 +34,7 @@ Kategorien, alle Gerichte, alle Beschreibungen, alle Preise und die Artikelnumme
 
 Kategorien in dieser Reihenfolge: Aperitif · Vorspeisen · Für den kleinen Hunger ·
 Argentinische Steaks · NIDDAHAUS Klassiker · Sonntagsbraten · Salate · Für unsere kleinen Gäste ·
-Desserts · **Getränke (Platzhalter)**.
+Desserts. Getränke: nur die Aperitifs stehen auf der Karte.
 
 Wörtlich übernommen sind auch die Fußnoten der Karte (vegetarisch/vegan auf Anfrage, Allergene,
 Konditorei-Hinweis, private Feiern & Gutscheine, Schlusssatz).
