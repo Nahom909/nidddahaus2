@@ -2,12 +2,12 @@
   "sections": [
     {
       "type": "kategorie",
-      "title": "Diese Woche",
+      "title": "Herbstliche Empfehlungen",
       "text": "",
       "wide": true,
       "accent": false,
       "hint_title": "Platzhalter – bitte wöchentlich aktualisieren",
-      "hint_text": "Hier stehen Beispiel-Gerichte. Im CMS unter „Wochen-Speisekarte“ einfach durch die echten Gerichte der Woche ersetzen.",
+      "hint_text": "",
       "items": [
         {
           "nummer": "",
