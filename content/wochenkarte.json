@@ -32,6 +32,30 @@
           "name": "Tafelspitz",
           "description": "mit Meerrettichsauce, Roter Bete und Salzkartoffeln",
           "price": "21,90"
+        },
+        {
+          "name": "Lachsfilet vom Grill",
+          "nummer": "53",
+          "description": "mit cremigem Blattspinat und Salzkartoffeln",
+          "price": "25,90"
+        },
+        {
+          "name": "Hausgemachte Spinatknödel",
+          "nummer": "115",
+          "description": "mit cremiger Champignonrahmsauce, Rucola und Parmesan, dazu ein kleiner Beilagensalat",
+          "price": "17,50"
+        },
+        {
+          "nummer": "117",
+          "name": "Himbeer-Panna-cotta",
+          "description": "mit Himbeeren und Pistazien",
+          "price": "7,80"
+        },
+        {
+          "nummer": "118",
+          "name": "Warmer Apfelstrudel",
+          "description": "mit Vanillesauce und Walnusseis",
+          "price": "8,90"
         }
       ]
     }
