@@ -737,6 +737,7 @@
       <a href="#bewertungen">Bewertungen</a>
       <a href="#speisekarte">Speisekarte</a>
       <a href="#kontakt">Öffnungszeiten &amp; Kontakt</a>
+      <a href="#reservieren">Reservieren</a>
     </div>
   </div>
 </nav>
@@ -1135,16 +1136,17 @@
 </section>
 
 <!-- ===== CTA-BAND ===== -->
-<section class="cta">
+<section class="cta" id="reservieren">
   <div class="cta-bg" aria-hidden="true"><img data-bild="cta" src="images/cta-band.jpg" alt=""></div>
   <div class="wrap rv">
-    <h2>Einen Tisch im NIDDAHAUS?</h2>
-    <p>Ein Anruf genügt – ob Mittagessen, Abendessen, Familienfeier oder ein Platz auf der Terrasse.</p>
+    <h2 id="resH">Einen Tisch im NIDDAHAUS?</h2>
+    <p id="resP">Ein Anruf genügt – ob Mittagessen, Abendessen, Familienfeier oder ein Platz auf der Terrasse.</p>
     <div class="cta-row">
       <a class="btn btn-beige" href="tel:+49610144342">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
         06101 44342
       </a>
+      <a class="btn btn-obeige" id="resBtn" href="#" target="_blank" rel="noopener" hidden>Online reservieren</a>
       <a class="btn btn-obeige" href="#speisekarte">Zur Speisekarte</a>
     </div>
   </div>
@@ -1447,6 +1449,27 @@
         box.appendChild(a);
       });
       if (list.length > 2) box.classList.add('many');
+    })
+    .catch(function(){});
+})();
+</script>
+<script>
+/* Reservierung aus dem CMS (content/reservierung.json). Der Online-Knopf erscheint erst,
+   wenn der Inhaber einen Link eingetragen hat. Es wird nichts eingebettet: eine Verbindung
+   zum Buchungsanbieter entsteht erst nach dem Klick auf den Knopf. */
+(function(){
+  fetch('content/reservierung.json', { cache: 'no-store' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){
+      if (!d) return;
+      var h = document.getElementById('resH'), p = document.getElementById('resP'), b = document.getElementById('resBtn');
+      if (d.ueberschrift && h) h.textContent = d.ueberschrift;
+      if (d.text && p) p.textContent = d.text;
+      if (b && /^https:\/\//i.test(d.link || '')){
+        b.href = d.link;
+        if (d.button_text) b.textContent = d.button_text;
+        b.hidden = false;
+      }
     })
     .catch(function(){});
 })();

@@ -148,3 +148,15 @@ collections:
               - { label: "Bildbeschreibung (für Suchmaschinen und Screenreader)", name: "alt", widget: "string", required: false }
               - { label: "Überschrift", name: "titel", widget: "string", required: false }
               - { label: "Text", name: "text", widget: "text", required: false }
+
+  - name: "reservierung"
+    label: "Reservierung (Tisch buchen)"
+    files:
+      - file: "content/reservierung.json"
+        label: "Reservierung (Tisch buchen)"
+        name: "reservierung"
+        fields:
+          - { label: "Überschrift", name: "ueberschrift", widget: "string" }
+          - { label: "Text", name: "text", widget: "text" }
+          - { label: "Link zur Online-Buchung", name: "link", widget: "string", required: false, hint: "Der Link zum Buchungsformular (muss mit https:// beginnen). Leer lassen = nur Telefon. Der Knopf erscheint erst, wenn hier ein Link steht." }
+          - { label: "Text auf dem Knopf", name: "button_text", widget: "string", default: "Online reservieren" }
