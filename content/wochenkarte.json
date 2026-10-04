@@ -6,56 +6,56 @@
       "text": "",
       "wide": true,
       "accent": false,
-      "hint_title": "Platzhalter – bitte wöchentlich aktualisieren",
+      "hint_title": "",
       "hint_text": "",
       "items": [
         {
           "nummer": "",
           "name": "102. Kürbiscremesuppe",
-          "description": " mit Kokosmilch und Ingwer, verfeinert mit Kürbiskernöl und gerösteten Kürbiskernen",
-          "price": "7,90"
+          "description": "mit Kokosmilch und Ingwer, verfeinert mit Kürbiskernöl und gerösteten Kürbiskernen",
+          "price": "7,90 €"
         },
         {
-          "nummer": "106. ",
+          "nummer": "106.",
           "name": "Rinderroulade",
           "description": "mit Apfelrotkohl und Kartoffelklößen",
-          "price": "24,90"
+          "price": "24,90 €"
         },
         {
-          "nummer": "105",
+          "nummer": "105.",
           "name": "Zwiebelrostbraten vom Roastbeef",
           "description": "mit Röstzwiebeln und Käsespätzle",
-          "price": "29,90"
+          "price": "29,90 €"
         },
         {
           "nummer": "104.",
           "name": "Tafelspitz",
           "description": "mit Meerrettichsauce, Roter Bete und Salzkartoffeln",
-          "price": "21,90"
+          "price": "21,90 €"
         },
         {
           "name": "Lachsfilet vom Grill",
-          "nummer": "53",
+          "nummer": "53.",
           "description": "mit cremigem Blattspinat und Salzkartoffeln",
-          "price": "25,90"
+          "price": "25,90 €"
         },
         {
           "name": "Hausgemachte Spinatknödel",
-          "nummer": "115",
+          "nummer": "115.",
           "description": "mit cremiger Champignonrahmsauce, Rucola und Parmesan, dazu ein kleiner Beilagensalat",
-          "price": "17,50"
+          "price": "17,50 €"
         },
         {
-          "nummer": "117",
+          "nummer": "117.",
           "name": "Himbeer-Panna-cotta",
           "description": "mit Himbeeren und Pistazien",
-          "price": "7,80"
+          "price": "7,80 €"
         },
         {
-          "nummer": "118",
+          "nummer": "118.",
           "name": "Warmer Apfelstrudel",
           "description": "mit Vanillesauce und Walnusseis",
-          "price": "8,90"
+          "price": "8,90 €"
         }
       ]
     }
