@@ -390,6 +390,10 @@
   .card-img{ aspect-ratio:16/11; overflow:hidden; background:var(--navy-3); }
   .card-img img{ width:100%; height:100%; object-fit:cover; }  /* bewusst ohne Animation */
   .card-body{ padding:24px 26px 28px; display:flex; flex-direction:column; gap:10px; }
+  /* Küche-Sektion: beliebig viele Karten aus dem CMS (content/kueche.json) */
+  .cards.many{ grid-template-columns:repeat(3,1fr); max-width:1100px; }
+  @media (max-width:960px){ .cards.many{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:700px){ .cards.many{ grid-template-columns:1fr; max-width:480px; } }
   .card h3{ font-size:20px; color:var(--gold); letter-spacing:-.024em; }
   .card p{ font-size:15.5px; color:var(--white-2); letter-spacing:-.008em; }
 
@@ -793,9 +797,9 @@
       <h2 class="split">Klassiker und ein Stück Kuchen.</h2>
       <p>Was Sie bei uns erwartet – von der Mittagskarte bis zum Kaffee am Nachmittag.</p>
     </div>
-    <div class="cards">
+    <div class="cards" id="kuecheCards">
       <article class="card rv">
-        <div class="card-img"><img data-bild="klassiker" src="images/karte-klassiker.jpg" alt="Vorspeisenteller mit Parmaschinken, Melone und Rucola" loading="lazy"></div>
+        <div class="card-img"><img src="images/karte-klassiker.jpg" alt="Vorspeisenteller mit Parmaschinken, Melone und Rucola" loading="lazy"></div>
         <div class="card-body">
           <h3>Deutsche Klassiker</h3>
           <p>Schnitzel Wiener Art, Rahmschnitzel, Cordon Bleu, Frankfurter Grüne Soße und Tafelspitz
@@ -803,7 +807,7 @@
         </div>
       </article>
       <article class="card rv d1">
-        <div class="card-img"><img data-bild="konditorei" src="images/karte-konditorei.jpg" alt="Bruschetta mit Tomate, Rucola und Parmesan" loading="lazy"></div>
+        <div class="card-img"><img src="images/karte-konditorei.jpg" alt="Bruschetta mit Tomate, Rucola und Parmesan" loading="lazy"></div>
         <div class="card-body">
           <h3>Desserts &amp; Konditorei</h3>
           <p>Crème brûlée, Panna Cotta und Eisspezialitäten. Unsere Konditorei bereitet täglich
@@ -1410,6 +1414,39 @@
         if (src && img.getAttribute('src') !== src) img.setAttribute('src', src);
         if (typeof e.alt === 'string' && img.closest('[aria-hidden="true"]') === null) img.setAttribute('alt', e.alt);
       });
+    })
+    .catch(function(){});
+})();
+</script>
+<script>
+/* Küche-Karten aus dem CMS (content/kueche.json). Fehlt die Datei oder ist sie leer,
+   bleiben die eingebauten Karten stehen. */
+(function(){
+  var box = document.getElementById('kuecheCards');
+  if (!box) return;
+  fetch('content/kueche.json', { cache: 'no-store' })
+    .then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(d){
+      var list = d && d.karten;
+      if (!list || !list.length) return;
+      box.innerHTML = '';
+      list.forEach(function(k){
+        var a = document.createElement('article'); a.className = 'card';
+        if (k.bild){
+          var w = document.createElement('div'); w.className = 'card-img';
+          var i = document.createElement('img');
+          i.src = String(k.bild).replace(/^\//, ''); i.alt = k.alt || ''; i.loading = 'lazy';
+          w.appendChild(i); a.appendChild(w);
+        }
+        if (k.titel || k.text){
+          var b = document.createElement('div'); b.className = 'card-body';
+          if (k.titel){ var t = document.createElement('h3'); t.textContent = k.titel; b.appendChild(t); }
+          if (k.text){ var p = document.createElement('p'); p.textContent = k.text; b.appendChild(p); }
+          a.appendChild(b);
+        }
+        box.appendChild(a);
+      });
+      if (list.length > 2) box.classList.add('many');
     })
     .catch(function(){});
 })();

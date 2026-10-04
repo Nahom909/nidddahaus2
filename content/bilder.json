@@ -7,14 +7,6 @@
     "bild": "/images/g-interieur.jpg",
     "alt": "Gedeckter Tisch mit Weingläsern und Servietten im Restaurant"
   },
-  "klassiker": {
-    "bild": "/images/karte-klassiker.jpg",
-    "alt": "Vorspeisenteller mit Parmaschinken, Melone und Rucola"
-  },
-  "konditorei": {
-    "bild": "/images/karte-konditorei.jpg",
-    "alt": "Bruschetta mit Tomate, Rucola und Parmesan"
-  },
   "cta": {
     "bild": "/images/cta-band.jpg",
     "alt": ""

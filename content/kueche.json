@@ -1,0 +1,16 @@
+{
+  "karten": [
+    {
+      "titel": "Deutsche Klassiker",
+      "text": "Schnitzel Wiener Art, Rahmschnitzel, Cordon Bleu, Frankfurter Grüne Soße und Tafelspitz vom Kalb – dazu argentinische Steaks und Lachsfilet vom Grill.",
+      "bild": "/images/karte-klassiker.jpg",
+      "alt": "Vorspeisenteller mit Parmaschinken, Melone und Rucola"
+    },
+    {
+      "titel": "Desserts & Konditorei",
+      "text": "Crème brûlée, Panna Cotta und Eisspezialitäten. Unsere Konditorei bereitet täglich zwei frische Kuchen zu – unser Service sagt Ihnen gerne, welche es heute sind.",
+      "bild": "/images/karte-konditorei.jpg",
+      "alt": "Bruschetta mit Tomate, Rucola und Parmesan"
+    }
+  ]
+}

@@ -124,20 +124,6 @@ collections:
             fields:
               - { label: "Bild", name: "bild", widget: "image" }
               - { label: "Bildbeschreibung (für Suchmaschinen und Screenreader)", name: "alt", widget: "string", required: false, hint: "z. B. Gedeckter Tisch im Restaurant" }
-          - label: "Karte „Deutsche Klassiker“"
-            name: "klassiker"
-            widget: "object"
-            hint: "Bild der ersten Karte im Bereich Küche. Querformat, ca. 2000 Pixel breit, möglichst unter 1 MB (große Handyfotos vorher verkleinern, sonst lädt die Seite langsam)."
-            fields:
-              - { label: "Bild", name: "bild", widget: "image" }
-              - { label: "Bildbeschreibung (für Suchmaschinen und Screenreader)", name: "alt", widget: "string", required: false, hint: "Was ist auf dem Foto zu sehen?" }
-          - label: "Karte „Desserts & Konditorei“"
-            name: "konditorei"
-            widget: "object"
-            hint: "Bild der zweiten Karte im Bereich Küche. Querformat, ca. 2000 Pixel breit, möglichst unter 1 MB (große Handyfotos vorher verkleinern, sonst lädt die Seite langsam)."
-            fields:
-              - { label: "Bild", name: "bild", widget: "image" }
-              - { label: "Bildbeschreibung (für Suchmaschinen und Screenreader)", name: "alt", widget: "string", required: false, hint: "Was ist auf dem Foto zu sehen?" }
           - label: "Bild im Reservierungs-Band"
             name: "cta"
             widget: "object"
@@ -145,3 +131,20 @@ collections:
             fields:
               - { label: "Bild", name: "bild", widget: "image" }
               - { label: "Bildbeschreibung (für Suchmaschinen und Screenreader)", name: "alt", widget: "string", required: false, hint: "Leer lassen, wenn das Bild nur Stimmung ist." }
+
+  - name: "kueche"
+    label: "Bereich „Unsere Küche“"
+    files:
+      - file: "content/kueche.json"
+        label: "Karten im Bereich „Klassiker und ein Stück Kuchen“"
+        name: "kueche"
+        fields:
+          - label: "Karten (beliebig viele hinzufügen, löschen, umsortieren)"
+            name: "karten"
+            widget: "list"
+            summary: "{{titel}}"
+            fields:
+              - { label: "Bild", name: "bild", widget: "image", required: false, hint: "Querformat, ca. 2000 Pixel breit, möglichst unter 1 MB (große Handyfotos vorher verkleinern)." }
+              - { label: "Bildbeschreibung (für Suchmaschinen und Screenreader)", name: "alt", widget: "string", required: false }
+              - { label: "Überschrift", name: "titel", widget: "string", required: false }
+              - { label: "Text", name: "text", widget: "text", required: false }
