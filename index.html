@@ -740,7 +740,7 @@
 <!-- ===== HERO ===== -->
 <div class="hero-stage" id="heroStage">
   <header class="hero" id="top">
-    <div class="hero-media" aria-hidden="true"><img src="images/hero.jpg" alt="" fetchpriority="high" decoding="async"></div>
+    <div class="hero-media" aria-hidden="true"><img data-bild="hero" src="images/hero.jpg" alt="" fetchpriority="high" decoding="async"></div>
     <div class="hero-scrim" aria-hidden="true"></div>
 
     <div class="wrap hero-inner">
@@ -780,7 +780,7 @@
       </div>
     </div>
     <div class="shot rv d1">
-      <img src="images/g-interieur.jpg" alt="Gedeckter Tisch mit Weingläsern und Servietten im Restaurant" loading="lazy">
+      <img data-bild="willkommen" src="images/g-interieur.jpg" alt="Gedeckter Tisch mit Weingläsern und Servietten im Restaurant" loading="lazy">
     </div>
   </div>
 </section>
@@ -795,7 +795,7 @@
     </div>
     <div class="cards">
       <article class="card rv">
-        <div class="card-img"><img src="images/karte-klassiker.jpg" alt="Vorspeisenteller mit Parmaschinken, Melone und Rucola" loading="lazy"></div>
+        <div class="card-img"><img data-bild="klassiker" src="images/karte-klassiker.jpg" alt="Vorspeisenteller mit Parmaschinken, Melone und Rucola" loading="lazy"></div>
         <div class="card-body">
           <h3>Deutsche Klassiker</h3>
           <p>Schnitzel Wiener Art, Rahmschnitzel, Cordon Bleu, Frankfurter Grüne Soße und Tafelspitz
@@ -803,7 +803,7 @@
         </div>
       </article>
       <article class="card rv d1">
-        <div class="card-img"><img src="images/karte-konditorei.jpg" alt="Bruschetta mit Tomate, Rucola und Parmesan" loading="lazy"></div>
+        <div class="card-img"><img data-bild="konditorei" src="images/karte-konditorei.jpg" alt="Bruschetta mit Tomate, Rucola und Parmesan" loading="lazy"></div>
         <div class="card-body">
           <h3>Desserts &amp; Konditorei</h3>
           <p>Crème brûlée, Panna Cotta und Eisspezialitäten. Unsere Konditorei bereitet täglich
@@ -1132,7 +1132,7 @@
 
 <!-- ===== CTA-BAND ===== -->
 <section class="cta">
-  <div class="cta-bg" aria-hidden="true"><img src="images/cta-band.jpg" alt=""></div>
+  <div class="cta-bg" aria-hidden="true"><img data-bild="cta" src="images/cta-band.jpg" alt=""></div>
   <div class="wrap rv">
     <h2>Einen Tisch im NIDDAHAUS?</h2>
     <p>Ein Anruf genügt – ob Mittagessen, Abendessen, Familienfeier oder ein Platz auf der Terrasse.</p>
@@ -1396,5 +1396,23 @@
 })();
 </script>
 
+<script>
+/* Bilder aus dem CMS (content/bilder.json): ersetzt nur, was der Inhaber geändert hat.
+   Fehlt die Datei oder ein Eintrag, bleiben die eingebauten Standard-Bilder stehen. */
+(function(){
+  fetch('content/bilder.json', { cache: 'no-store' })
+    .then(function(r){ return r.ok ? r.json() : {}; })
+    .then(function(d){
+      document.querySelectorAll('img[data-bild]').forEach(function(img){
+        var e = d[img.getAttribute('data-bild')];
+        if (!e) return;
+        var src = (e.bild || '').replace(/^\//, '');
+        if (src && img.getAttribute('src') !== src) img.setAttribute('src', src);
+        if (typeof e.alt === 'string' && img.closest('[aria-hidden="true"]') === null) img.setAttribute('alt', e.alt);
+      });
+    })
+    .catch(function(){});
+})();
+</script>
 </body>
 </html>
