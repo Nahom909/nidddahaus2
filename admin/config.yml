@@ -158,5 +158,5 @@ collections:
         fields:
           - { label: "Überschrift", name: "ueberschrift", widget: "string" }
           - { label: "Text", name: "text", widget: "text" }
-          - { label: "Link zur Online-Buchung", name: "link", widget: "string", required: false, hint: "Der Link zum Buchungsformular (muss mit https:// beginnen). Leer lassen = nur Telefon. Der Knopf erscheint erst, wenn hier ein Link steht." }
+          - { label: "Link zur Online-Buchung", name: "link", widget: "string", required: false, hint: "Link zur Reservierungsseite von resmio (muss mit https:// beginnen). WICHTIG: Erst eintragen, wenn der Vertrag zur Auftragsverarbeitung (AVV) mit resmio unterschrieben und von resmio zurückgeschickt wurde. Leer lassen = nur Telefon. Der Knopf erscheint erst, wenn hier ein Link steht." }
           - { label: "Text auf dem Knopf", name: "button_text", widget: "string", default: "Online reservieren" }
