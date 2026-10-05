@@ -542,6 +542,11 @@
   .map-embed p{ font-size:14.5px; margin-bottom:18px; color:var(--ink-2); }
   .map-embed iframe{ width:100%; height:320px; display:block; border:0; border-radius:12px; }
 
+  /* Schmale Desktops: der Speisekarte-Knopf entfällt (der Menülink „Speisekarte" bleibt), damit Reservieren + Anrufen Platz haben */
+  @media (min-width:1025px) and (max-width:1279px){
+    .nav-cta .btn[href="#speisekarte"]{ display:none; }
+  }
+
   /* ===== CTA-BAND ===== */
   .cta{ position:relative; overflow:hidden; text-align:center; padding:140px 0; }
   .cta-bg{ position:absolute; inset:0; z-index:0; }
@@ -726,7 +731,8 @@
     </button>
     <div class="nav-links" id="navlinks">
       <div class="nav-cta">
-        <a class="btn btn-beige btn-sm" href="#speisekarte">Speisekarte</a>
+        <a class="btn btn-beige btn-sm js-res" href="#reservieren">Reservieren</a>
+        <a class="btn btn-obeige btn-sm" href="#speisekarte">Speisekarte</a>
         <a class="btn btn-obeige btn-sm" href="tel:+49610144342">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
           Anrufen
@@ -737,7 +743,6 @@
       <a href="#bewertungen">Bewertungen</a>
       <a href="#speisekarte">Speisekarte</a>
       <a href="#kontakt">Öffnungszeiten &amp; Kontakt</a>
-      <a href="#reservieren">Reservieren</a>
     </div>
   </div>
 </nav>
@@ -754,7 +759,8 @@
       <p class="sub anim a2">Moderne deutsche Küche in Bad Vilbel: Schnitzel, Steaks, frischer Fisch
         und saisonale Gerichte. Dazu Aperitifs und hausgemachte Desserts.</p>
       <div class="cta-row anim a3">
-        <a class="btn btn-beige" href="tel:+49610144342">
+        <a class="btn btn-beige js-res" href="#reservieren">Reservieren</a>
+        <a class="btn btn-obeige" href="tel:+49610144342">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v3a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg>
           06101 44342
         </a>
@@ -1465,10 +1471,16 @@
       var h = document.getElementById('resH'), p = document.getElementById('resP'), b = document.getElementById('resBtn');
       if (d.ueberschrift && h) h.textContent = d.ueberschrift;
       if (d.text && p) p.textContent = d.text;
-      if (b && /^https:\/\//i.test(d.link || '')){
-        b.href = d.link;
-        if (d.button_text) b.textContent = d.button_text;
-        b.hidden = false;
+      if (/^https:\/\//i.test(d.link || '')){
+        if (b){
+          b.href = d.link;
+          if (d.button_text) b.textContent = d.button_text;
+          b.hidden = false;
+        }
+        /* Reservieren-Knöpfe oben (Menü, Hero) führen direkt zur Buchung */
+        document.querySelectorAll('a.js-res').forEach(function(a){
+          a.href = d.link; a.target = '_blank'; a.rel = 'noopener';
+        });
       }
     })
     .catch(function(){});
